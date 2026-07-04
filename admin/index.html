@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Sumber Pitu Waterfall</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal:       #4ecdc4;
+      --teal-light: #a8e6cf;
+      --green-dark: #071410;
+      --green-mid:  #0d1f14;
+      --green-base: #1a3a2a;
+      --white:      #ffffff;
+      --white-60:   rgba(255,255,255,0.6);
+      --white-30:   rgba(255,255,255,0.3);
+      --white-10:   rgba(255,255,255,0.1);
+      --white-05:   rgba(255,255,255,0.05);
+      --red:        #e74c3c;
+      --sidebar-w:  260px;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Lato', sans-serif;
+      background: var(--green-dark);
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    /* ===================== LOGIN ===================== */
+    #login-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--green-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    #login-screen.hide { display: none; }
+
+    .login-card {
+      background: var(--green-mid);
+      border: 1px solid rgba(78,205,196,0.2);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      width: 340px;
+      text-align: center;
+    }
+    .login-logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .login-logo span { color: var(--teal); }
+    .login-sub {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--white-30);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .login-label {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--white-30);
+      text-align: left;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .login-input {
+      width: 100%;
+      background: var(--white-05);
+      border: 1px solid var(--white-10);
+      color: var(--white);
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      outline: none;
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s;
+      text-align: center;
+    }
+    .login-input:focus { border-color: var(--teal); }
+    .login-btn {
+      width: 100%;
+      background: var(--teal);
+      color: var(--green-dark);
+      border: none;
+      padding: 0.85rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-btn:hover { background: var(--teal-light); }
+    .login-error {
+      font-size: 0.75rem;
+      color: var(--red);
+      margin-top: 0.75rem;
+      min-height: 1.1rem;
+    }
+    .login-hint {
+      font-size: 0.65rem;
+      color: var(--white-30);
+      margin-top: 1.5rem;
+      line-height: 1.6;
+    }
+
+    /* ===================== LAYOUT UTAMA ===================== */
+    #app {
+      display: none;
+      height: 100vh;
+      flex-direction: row;
+    }
+    #app.show { display: flex; }
+
+    /* ===================== SIDEBAR ===================== */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      background: var(--green-mid);
+      border-right: 1px solid rgba(78,205,196,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sidebar-brand {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(78,205,196,0.1);
+    }
+    .sidebar-brand-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .sidebar-brand-name span { color: var(--teal); }
+    .sidebar-brand-sub {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--white-30);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .sidebar-badge {
+      display: inline-block;
+      background: rgba(78,205,196,0.1);
+      color: var(--teal);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-top: 6px;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 1rem 0;
+      overflow-y: auto;
+    }
+
+    .nav-section-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--white-30);
+      padding: 0.75rem 1.25rem 0.35rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.65rem 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-left: 2px solid transparent;
+      font-size: 0.82rem;
+      color: var(--white-60);
+    }
+    .nav-item:hover { background: var(--white-05); color: var(--white); }
+    .nav-item.active {
+      background: rgba(78,205,196,0.08);
+      color: var(--teal);
+      border-left-color: var(--teal);
+    }
+    .nav-item-icon { font-size: 1rem; flex-shrink: 0; }
+
+    .sidebar-footer {
+      padding: 1rem 1.25rem;
+      border-top: 1px solid rgba(78,205,196,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .btn-preview {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(78,205,196,0.08);
+      border: 1px solid rgba(78,205,196,0.2);
+      color: var(--teal);
+      padding: 0.6rem;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      font-family: 'Oswald', sans-serif;
+    }
+    .btn-preview:hover { background: rgba(78,205,196,0.15); }
+    .btn-logout {
+      background: none;
+      border: 1px solid var(--white-10);
+      color: var(--white-30);
+      padding: 0.6rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-logout:hover { border-color: var(--red); color: var(--red); }
+
+    /* ===================== KONTEN UTAMA ===================== */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .main-header {
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--white-10);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .main-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .main-subtitle { font-size: 0.72rem; color: var(--white-30); margin-top: 2px; }
+
+    .btn-save {
+      background: var(--teal);
+      color: var(--green-dark);
+      border: none;
+      padding: 0.65rem 1.75rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-save:hover { background: var(--teal-light); }
+
+    .main-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 2rem;
+    }
+
+    /* ===================== PANEL KONTEN ===================== */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .panel-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--green-mid);
+      border: 1px solid var(--white-10);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .card-full { grid-column: 1 / -1; }
+
+    .card-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(78,205,196,0.1);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Field */
+    .field { margin-bottom: 1rem; }
+    .field:last-child { margin-bottom: 0; }
+
+    .field-label {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--white-30);
+      margin-bottom: 0.35rem;
+      letter-spacing: 0.05em;
+    }
+
+    .field-input,
+    .field-textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--white-10);
+      color: var(--white);
+      font-size: 0.85rem;
+      padding: 0.65rem 0.85rem;
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: 'Lato', sans-serif;
+    }
+    .field-input:focus,
+    .field-textarea:focus { border-color: var(--teal); }
+    .field-textarea { resize: vertical; min-height: 80px; line-height: 1.55; }
+
+    /* Upload foto */
+    .upload-area {
+      position: relative;
+      border: 1.5px dashed rgba(78,205,196,0.25);
+      border-radius: 8px;
+      padding: 1.25rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      overflow: hidden;
+    }
+    .upload-area:hover {
+      border-color: var(--teal);
+      background: rgba(78,205,196,0.03);
+    }
+    .upload-area input[type=file] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+    }
+    .upload-icon { font-size: 2rem; margin-bottom: 0.4rem; }
+    .upload-text { font-size: 0.75rem; color: var(--white-30); line-height: 1.5; }
+    .upload-filename {
+      font-size: 0.7rem;
+      color: var(--teal);
+      margin-top: 0.5rem;
+      font-weight: 700;
+    }
+
+    .img-preview {
+      width: 100%;
+      aspect-ratio: 16/7;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-top: 0.75rem;
+      display: none;
+      border: 1px solid rgba(78,205,196,0.15);
+    }
+    .img-preview.show { display: block; }
+
+    /* Stat cards preview */
+    .stat-preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .stat-preview-item { display: flex; flex-direction: column; gap: 0.35rem; }
+
+    /* ===================== TOAST ===================== */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--teal);
+      color: var(--green-dark);
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.35s;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* ===================== RESPONSIF ===================== */
+    @media (max-width: 860px) {
+      .sidebar { width: 200px; }
+      .panel-grid, .panel-grid-3 { grid-template-columns: 1fr; }
+      .card-full { grid-column: 1; }
+    }
+    @media (max-width: 600px) {
+      .sidebar { display: none; }
+      .main-body { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== LOGIN ===================== -->
+  <div id="login-screen">
+    <div class="login-card">
+      <div class="login-logo">Sumber <span>Pitu</span></div>
+      <div class="login-sub">Panel Admin</div>
+      <label class="login-label" for="pwd">Password</label>
+      <input type="password" id="pwd" class="login-input" placeholder="••••••••" autocomplete="current-password">
+      <button class="login-btn" id="login-btn">Masuk →</button>
+      <div class="login-error" id="login-error"></div>
+      <div class="login-hint">
+        Hanya untuk pengelola resmi<br>Sumber Pitu Waterfall
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== APP ===================== -->
+  <div id="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-name">Sumber <span>Pitu</span></div>
+        <div class="sidebar-brand-sub">Waterfall · East Java</div>
+        <div class="sidebar-badge">⚙ Admin Panel</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">Konten</div>
+        <div class="nav-item active" data-panel="beranda">
+          <span class="nav-item-icon">🏠</span> Beranda
+        </div>
+        <div class="nav-item" data-panel="info">
+          <span class="nav-item-icon">🎫</span> Info & Tiket
+        </div>
+        <div class="nav-item" data-panel="foto">
+          <span class="nav-item-icon">🖼️</span> Foto & Galeri
+        </div>
+        <div class="nav-section-label">Pengaturan</div>
+        <div class="nav-item" data-panel="kontak">
+          <span class="nav-item-icon">📱</span> Kontak & Sosmed
+        </div>
+        <div class="nav-item" data-panel="password">
+          <span class="nav-item-icon">🔑</span> Ganti Password
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="Sumber_Pitu_final.html" target="_blank" class="btn-preview">
+          🌐 Lihat Website
+        </a>
+        <button class="btn-logout" id="btn-logout">Keluar</button>
+      </div>
+    </aside>
+
+    <!-- KONTEN UTAMA -->
+    <div class="main">
+      <div class="main-header">
+        <div>
+          <div class="main-title" id="panel-title">Beranda</div>
+          <div class="main-subtitle" id="panel-subtitle">Edit judul, deskripsi, dan tombol hero section</div>
+        </div>
+        <button class="btn-save" id="btn-save">💾 Simpan</button>
+      </div>
+
+      <div class="main-body">
+
+        <!-- PANEL: BERANDA -->
+        <div class="panel active" id="panel-beranda">
+          <div class="panel-grid">
+
+            <div class="card">
+              <div class="card-title">🔤 Judul Utama (Hero)</div>
+              <div class="field">
+                <label class="field-label">Baris 1 — Teks putih</label>
+                <input class="field-input" id="f-line1" type="text" placeholder="Sumber">
+              </div>
+              <div class="field">
+                <label class="field-label">Baris 2 — Outline teal (transparan)</label>
+                <input class="field-input" id="f-line2" type="text" placeholder="Pitu">
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">🔘 Tombol CTA Hero</div>
+              <div class="field">
+                <label class="field-label">Tombol Utama (hijau)</label>
+                <input class="field-input" id="f-btn1" type="text" placeholder="Rencanakan Kunjungan">
+              </div>
+              <div class="field">
+                <label class="field-label">Tombol Kedua (outline)</label>
+                <input class="field-input" id="f-btn2" type="text" placeholder="Lihat Galeri">
+              </div>
+            </div>
+
+            <div class="card card-full">
+              <div class="card-title">📝 Deskripsi Hero</div>
+              <div class="field">
+                <textarea class="field-textarea" id="f-desc" rows="4"
+                  placeholder="Tulis deskripsi singkat tentang Sumber Pitu..."></textarea>
+              </div>
+            </div>
+
+            <div class="card card-full">
+              <div class="card-title">📊 Stat Cards (Fakta Singkat)</div>
+              <div class="stat-preview-grid">
+                <div class="stat-preview-item">
+                  <label class="field-label">Label Stat 1</label>
+                  <input class="field-input" id="f-stat1-label" type="text" placeholder="Ketinggian Air Terjun">
+                  <label class="field-label" style="margin-top:.5rem">Nilai Stat 1</label>
+                  <input class="field-input" id="f-stat1-val" type="text" placeholder="± 40 Meter">
+                </div>
+                <div class="stat-preview-item">
+                  <label class="field-label">Label Stat 2</label>
+                  <input class="field-input" id="f-stat2-label" type="text" placeholder="Total Aliran">
+                  <label class="field-label" style="margin-top:.5rem">Nilai Stat 2</label>
+                  <input class="field-input" id="f-stat2-val" type="text" placeholder="14 Aliran Air">
+                </div>
+                <div class="stat-preview-item">
+                  <label class="field-label">Label Stat 3</label>
+                  <input class="field-input" id="f-stat3-label" type="text" placeholder="Lokasi">
+                  <label class="field-label" style="margin-top:.5rem">Nilai Stat 3</label>
+                  <input class="field-input" id="f-stat3-val" type="text" placeholder="Malang, Jawa Timur">
+                </div>
+                <div class="stat-preview-item">
+                  <label class="field-label">Label Stat 4</label>
+                  <input class="field-input" id="f-stat4-label" type="text" placeholder="Jam Operasional">
+                  <label class="field-label" style="margin-top:.5rem">Nilai Stat 4</label>
+                  <input class="field-input" id="f-stat4-val" type="text" placeholder="07.00 – 17.00 WIB">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- PANEL: INFO & TIKET -->
+        <div class="panel" id="panel-info">
+          <div class="panel-grid">
+
+            <div class="card">
+              <div class="card-title">⏰ Jam Operasional</div>
+              <div class="field">
+                <label class="field-label">Jam Buka – Tutup</label>
+                <input class="field-input" id="f-jam" type="text" placeholder="07.00 – 17.00 WIB">
+              </div>
+              <div class="field">
+                <label class="field-label">Hari Operasional</label>
+                <input class="field-input" id="f-hari" type="text" placeholder="Setiap hari (Senin – Minggu)">
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">🎫 Harga Tiket</div>
+              <div class="field">
+                <label class="field-label">Tiket Dewasa</label>
+                <input class="field-input" id="f-tiket-dewasa" type="text" placeholder="Rp 10.000">
+              </div>
+              <div class="field">
+                <label class="field-label">Tiket Anak (di bawah 12 th)</label>
+                <input class="field-input" id="f-tiket-anak" type="text" placeholder="Rp 5.000">
+              </div>
+              <div class="field">
+                <label class="field-label">Parkir Motor</label>
+                <input class="field-input" id="f-parkir-motor" type="text" placeholder="Rp 3.000">
+              </div>
+              <div class="field">
+                <label class="field-label">Parkir Mobil</label>
+                <input class="field-input" id="f-parkir-mobil" type="text" placeholder="Rp 5.000">
+              </div>
+            </div>
+
+            <div class="card card-full">
+              <div class="card-title">📍 Lokasi & Alamat</div>
+              <div class="field">
+                <label class="field-label">Alamat Lengkap</label>
+                <textarea class="field-textarea" id="f-alamat" rows="3"
+                  placeholder="Desa Lebakharjo, Ampelgading, Kabupaten Malang, Jawa Timur"></textarea>
+              </div>
+              <div class="field">
+                <label class="field-label">Durasi Trekking</label>
+                <input class="field-input" id="f-trek" type="text" placeholder="30 – 45 menit">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- PANEL: FOTO & GALERI -->
+        <div class="panel" id="panel-foto">
+          <div class="panel-grid">
+
+            <div class="card">
+              <div class="card-title">🏔️ Foto Hero (Banner Utama)</div>
+              <div class="upload-area">
+                <input type="file" id="file-hero" accept="image/*">
+                <div class="upload-icon">🖼️</div>
+                <div class="upload-text">Klik untuk pilih foto<br><span style="opacity:.5">JPG/PNG · Maks 5MB · Landscape</span></div>
+                <div class="upload-filename" id="fname-hero"></div>
+              </div>
+              <img class="img-preview" id="prev-hero" alt="Preview hero">
+            </div>
+
+            <div class="card">
+              <div class="card-title">🗺️ Foto Background Maps (CTA)</div>
+              <div class="upload-area">
+                <input type="file" id="file-maps" accept="image/*">
+                <div class="upload-icon">🗺️</div>
+                <div class="upload-text">Klik untuk pilih screenshot maps<br><span style="opacity:.5">JPG/PNG · Maks 5MB</span></div>
+                <div class="upload-filename" id="fname-maps"></div>
+              </div>
+              <img class="img-preview" id="prev-maps" alt="Preview maps">
+            </div>
+
+            <div class="card card-full">
+              <div class="card-title">🖼️ URL Foto Galeri</div>
+              <div class="panel-grid" style="gap:.75rem">
+                <div class="field">
+                  <label class="field-label">Foto Galeri 1</label>
+                  <input class="field-input" id="f-gal1" type="url" placeholder="https://...">
+                </div>
+                <div class="field">
+                  <label class="field-label">Foto Galeri 2</label>
+                  <input class="field-input" id="f-gal2" type="url" placeholder="https://...">
+                </div>
+                <div class="field">
+                  <label class="field-label">Foto Galeri 3</label>
+                  <input class="field-input" id="f-gal3" type="url" placeholder="https://...">
+                </div>
+                <div class="field">
+                  <label class="field-label">Foto Galeri 4</label>
+                  <input class="field-input" id="f-gal4" type="url" placeholder="https://...">
+                </div>
+                <div class="field">
+                  <label class="field-label">Foto Galeri 5</label>
+                  <input class="field-input" id="f-gal5" type="url" placeholder="https://...">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- PANEL: KONTAK & SOSMED -->
+        <div class="panel" id="panel-kontak">
+          <div class="panel-grid">
+
+            <div class="card">
+              <div class="card-title">📱 Media Sosial</div>
+              <div class="field">
+                <label class="field-label">Instagram</label>
+                <input class="field-input" id="f-ig" type="url" placeholder="https://instagram.com/sumberpitu">
+              </div>
+              <div class="field">
+                <label class="field-label">Facebook</label>
+                <input class="field-input" id="f-fb" type="url" placeholder="https://facebook.com/sumberpitu">
+              </div>
+              <div class="field">
+                <label class="field-label">YouTube</label>
+                <input class="field-input" id="f-yt" type="url" placeholder="https://youtube.com/@sumberpitu">
+              </div>
+              <div class="field">
+                <label class="field-label">TikTok</label>
+                <input class="field-input" id="f-tt" type="url" placeholder="https://tiktok.com/@sumberpitu">
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">📞 Kontak Langsung</div>
+              <div class="field">
+                <label class="field-label">Nomor WhatsApp</label>
+                <input class="field-input" id="f-wa" type="text" placeholder="6281234567890">
+                <div style="font-size:.65rem;color:var(--white-30);margin-top:.3rem">Format: kode negara + nomor tanpa spasi (contoh: 6281234567890)</div>
+              </div>
+              <div class="field">
+                <label class="field-label">Pesan WhatsApp Default</label>
+                <textarea class="field-textarea" id="f-wa-msg" rows="3"
+                  placeholder="Halo, saya ingin bertanya tentang Sumber Pitu..."></textarea>
+              </div>
+              <div class="field">
+                <label class="field-label">Link Google Maps</label>
+                <input class="field-input" id="f-gmaps" type="url" placeholder="https://maps.google.com/...">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- PANEL: GANTI PASSWORD -->
+        <div class="panel" id="panel-password">
+          <div style="max-width: 420px;">
+            <div class="card">
+              <div class="card-title">🔑 Ganti Password Admin</div>
+              <div class="field">
+                <label class="field-label">Password Saat Ini</label>
+                <input class="field-input" id="f-pass-old" type="password" placeholder="••••••••">
+              </div>
+              <div class="field">
+                <label class="field-label">Password Baru</label>
+                <input class="field-input" id="f-pass-new" type="password" placeholder="••••••••">
+              </div>
+              <div class="field">
+                <label class="field-label">Konfirmasi Password Baru</label>
+                <input class="field-input" id="f-pass-confirm" type="password" placeholder="••••••••">
+              </div>
+              <div id="pass-error" style="font-size:.72rem;color:var(--red);margin-top:.5rem;min-height:1rem"></div>
+              <button class="btn-save" id="btn-change-pass" style="margin-top:1rem;width:100%;justify-content:center">
+                🔑 Ganti Password
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /main-body -->
+    </div><!-- /main -->
+
+  </div><!-- /app -->
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* =========================================================
+       KONFIGURASI
+       ========================================================= */
+    var STORAGE_KEY  = 'sp_admin_data';
+    var PASS_KEY     = 'sp_admin_pass';
+    var DEFAULT_PASS = 'giantanjai'; // ← Password default
+
+    /* =========================================================
+       LOGIN
+       ========================================================= */
+    var loginScreen = document.getElementById('login-screen');
+    var appEl       = document.getElementById('app');
+    var pwdInput    = document.getElementById('pwd');
+    var loginBtn    = document.getElementById('login-btn');
+    var loginError  = document.getElementById('login-error');
+
+    function getPass() {
+      return localStorage.getItem(PASS_KEY) || DEFAULT_PASS;
+    }
+
+    function doLogin() {
+      if (pwdInput.value === getPass()) {
+        loginScreen.classList.add('hide');
+        appEl.classList.add('show');
+        pwdInput.value = '';
+        loginError.textContent = '';
+        loadAllFields();
+      } else {
+        loginError.textContent = '✕ Password salah. Coba lagi.';
+        pwdInput.value = '';
+        pwdInput.focus();
+      }
+    }
+
+    loginBtn.addEventListener('click', doLogin);
+    pwdInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
+
+    document.getElementById('btn-logout').addEventListener('click', function() {
+      appEl.classList.remove('show');
+      loginScreen.classList.remove('hide');
+    });
+
+    /* =========================================================
+       NAVIGASI SIDEBAR
+       ========================================================= */
+    var panelTitles = {
+      beranda:  ['Beranda',       'Edit judul, deskripsi, dan tombol hero section'],
+      info:     ['Info & Tiket',  'Atur jam buka, harga tiket, dan informasi lokasi'],
+      foto:     ['Foto & Galeri', 'Ganti foto hero, background maps, dan foto galeri'],
+      kontak:   ['Kontak & Sosmed', 'Atur link media sosial, WhatsApp, dan Google Maps'],
+      password: ['Ganti Password', 'Ubah password login admin panel'],
+    };
+
+    document.querySelectorAll('.nav-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        var key = item.dataset.panel;
+        document.querySelectorAll('.nav-item').forEach(function(i) { i.classList.remove('active'); });
+        document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+        item.classList.add('active');
+        document.getElementById('panel-' + key).classList.add('active');
+        document.getElementById('panel-title').textContent    = panelTitles[key][0];
+        document.getElementById('panel-subtitle').textContent = panelTitles[key][1];
+      });
+    });
+
+    /* =========================================================
+       SIMPAN & LOAD DATA
+       ========================================================= */
+    function getSaved() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+      catch(e) { return {}; }
+    }
+
+    function setVal(id, val) {
+      var el = document.getElementById(id);
+      if (el && val !== undefined) el.value = val;
+    }
+
+    function getVal(id) {
+      var el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    }
+
+    function loadAllFields() {
+      var d = getSaved();
+      // Beranda
+      setVal('f-line1',      d.line1      || 'Sumber');
+      setVal('f-line2',      d.line2      || 'Pitu');
+      setVal('f-desc',       d.desc       || 'Sumber mata air yang lahir dari perut bumi, berada di balik perkebunan dan hutan tropis Malang yang hijau abadi. Biarkan bisikan menjemput langkah anda menuju surga yang tersembunyi.');
+      setVal('f-btn1',       d.btn1       || 'Rencanakan Kunjungan');
+      setVal('f-btn2',       d.btn2       || 'Lihat Galeri');
+      setVal('f-stat1-label', d.stat1Label || 'Ketinggian Air Terjun');
+      setVal('f-stat1-val',   d.stat1Val   || '± 40 Meter');
+      setVal('f-stat2-label', d.stat2Label || 'Total Aliran');
+      setVal('f-stat2-val',   d.stat2Val   || '14 Aliran Air');
+      setVal('f-stat3-label', d.stat3Label || 'Lokasi');
+      setVal('f-stat3-val',   d.stat3Val   || 'Malang, Jawa Timur');
+      setVal('f-stat4-label', d.stat4Label || 'Jam Operasional');
+      setVal('f-stat4-val',   d.stat4Val   || '07.00 – 17.00 WIB');
+      // Info
+      setVal('f-jam',          d.jam          || '07.00 – 17.00 WIB');
+      setVal('f-hari',         d.hari         || 'Setiap hari');
+      setVal('f-tiket-dewasa', d.tiketDewasa  || 'Rp 10.000');
+      setVal('f-tiket-anak',   d.tiketAnak    || 'Rp 5.000');
+      setVal('f-parkir-motor', d.parkirMotor  || 'Rp 3.000');
+      setVal('f-parkir-mobil', d.parkirMobil  || 'Rp 5.000');
+      setVal('f-alamat',       d.alamat       || 'Desa Duwet Krajan, Kec. Tumpang\nKab. Malang, Jawa Timur');
+      setVal('f-trek',         d.trek         || '30 – 45 menit');
+      // Galeri
+      setVal('f-gal1', d.gal1 || '');
+      setVal('f-gal2', d.gal2 || '');
+      setVal('f-gal3', d.gal3 || '');
+      setVal('f-gal4', d.gal4 || '');
+      setVal('f-gal5', d.gal5 || '');
+      // Kontak
+      setVal('f-ig',     d.ig     || '');
+      setVal('f-fb',     d.fb     || '');
+      setVal('f-yt',     d.yt     || '');
+      setVal('f-tt',     d.tt     || '');
+      setVal('f-wa',     d.wa     || '+62 881-0272-02516');
+      setVal('f-wa-msg', d.waMsg  || 'Halo, saya ingin bertanya tentang Sumber Pitu Waterfall.');
+      setVal('f-gmaps',  d.gmaps  || 'https://www.google.com/maps/place/Sumber+Pitu+Waterfall/@-8.0135832,112.8217266,17z/data=!3m1!4b1!4m6!3m5!1s0x2dd63ac87acac5d5:0x923963e602a1b0e2!8m2!3d-8.0135832!4d112.8217266!16s%2Fg%2F11bwh4mzms');
+      // Preview foto
+      if (d.heroImg) showPreview('prev-hero', 'fname-hero', d.heroImg, 'Foto tersimpan');
+      if (d.mapsImg) showPreview('prev-maps', 'fname-maps', d.mapsImg, 'Foto tersimpan');
+    }
+
+    /* =========================================================
+       UPLOAD FOTO
+       ========================================================= */
+    function showPreview(prevId, fnameId, src, name) {
+      var prev  = document.getElementById(prevId);
+      var fname = document.getElementById(fnameId);
+      if (prev)  { prev.src = src; prev.classList.add('show'); }
+      if (fname) fname.textContent = '✓ ' + name;
+    }
+
+    function setupUpload(fileId, prevId, fnameId, imgKey) {
+      var input = document.getElementById(fileId);
+      if (!input) return;
+      input.addEventListener('change', function() {
+        var file = input.files[0];
+        if (!file) return;
+        if (file.size > 5 * 1024 * 1024) { alert('Ukuran file terlalu besar (maks 5MB)'); return; }
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          showPreview(prevId, fnameId, e.target.result, file.name);
+          window['_img_' + imgKey] = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    setupUpload('file-hero', 'prev-hero', 'fname-hero', 'heroImg');
+    setupUpload('file-maps', 'prev-maps', 'fname-maps', 'mapsImg');
+
+    /* =========================================================
+       SIMPAN
+       ========================================================= */
+    document.getElementById('btn-save').addEventListener('click', function() {
+      var d = getSaved();
+
+      // Kumpulkan semua field
+      d.line1       = getVal('f-line1');
+      d.line2       = getVal('f-line2');
+      d.desc        = getVal('f-desc');
+      d.btn1        = getVal('f-btn1');
+      d.btn2        = getVal('f-btn2');
+      d.stat1Label  = getVal('f-stat1-label');
+      d.stat1Val    = getVal('f-stat1-val');
+      d.stat2Label  = getVal('f-stat2-label');
+      d.stat2Val    = getVal('f-stat2-val');
+      d.stat3Label  = getVal('f-stat3-label');
+      d.stat3Val    = getVal('f-stat3-val');
+      d.stat4Label  = getVal('f-stat4-label');
+      d.stat4Val    = getVal('f-stat4-val');
+      d.jam         = getVal('f-jam');
+      d.hari        = getVal('f-hari');
+      d.tiketDewasa = getVal('f-tiket-dewasa');
+      d.tiketAnak   = getVal('f-tiket-anak');
+      d.parkirMotor = getVal('f-parkir-motor');
+      d.parkirMobil = getVal('f-parkir-mobil');
+      d.alamat      = getVal('f-alamat');
+      d.trek        = getVal('f-trek');
+      d.gal1        = getVal('f-gal1');
+      d.gal2        = getVal('f-gal2');
+      d.gal3        = getVal('f-gal3');
+      d.gal4        = getVal('f-gal4');
+      d.gal5        = getVal('f-gal5');
+      d.ig          = getVal('f-ig');
+      d.fb          = getVal('f-fb');
+      d.yt          = getVal('f-yt');
+      d.tt          = getVal('f-tt');
+      d.wa          = getVal('f-wa');
+      d.waMsg       = getVal('f-wa-msg');
+      d.gmaps       = getVal('f-gmaps');
+
+      // Foto baru
+      if (window._img_heroImg) { d.heroImg = window._img_heroImg; delete window._img_heroImg; }
+      if (window._img_mapsImg) { d.mapsImg = window._img_mapsImg; delete window._img_mapsImg; }
+
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
+        showToast('✓ Perubahan disimpan! Buka website untuk melihat hasilnya.');
+      } catch(e) {
+        alert('Penyimpanan penuh. Hapus foto lama atau kurangi ukuran gambar.');
+      }
+    });
+
+    /* =========================================================
+       GANTI PASSWORD
+       ========================================================= */
+    document.getElementById('btn-change-pass').addEventListener('click', function() {
+      var oldPass  = document.getElementById('f-pass-old').value;
+      var newPass  = document.getElementById('f-pass-new').value;
+      var confirm  = document.getElementById('f-pass-confirm').value;
+      var errEl    = document.getElementById('pass-error');
+
+      if (oldPass !== getPass()) {
+        errEl.textContent = '✕ Password saat ini salah.'; return;
+      }
+      if (newPass.length < 6) {
+        errEl.textContent = '✕ Password baru minimal 6 karakter.'; return;
+      }
+      if (newPass !== confirm) {
+        errEl.textContent = '✕ Konfirmasi password tidak cocok.'; return;
+      }
+
+      localStorage.setItem(PASS_KEY, newPass);
+      errEl.textContent = '';
+      document.getElementById('f-pass-old').value    = '';
+      document.getElementById('f-pass-new').value    = '';
+      document.getElementById('f-pass-confirm').value = '';
+      showToast('✓ Password berhasil diubah!');
+    });
+
+    /* =========================================================
+       TOAST
+       ========================================================= */
+    function showToast(msg) {
+      var t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(function() { t.classList.remove('show'); }, 3500);
+    }
+
+    /* =========================================================
+       AUTO-APPLY KE WEBSITE UTAMA
+       Data disimpan di localStorage dengan key yang sama,
+       sehingga Sumber_Pitu_final.html otomatis membacanya.
+       ========================================================= */
+  </script>
+
+</body>
+</html>
