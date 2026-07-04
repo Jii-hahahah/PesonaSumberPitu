@@ -402,6 +402,52 @@
     }
     .img-preview.show { display: block; }
 
+    .btn-remove-img {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      width: 100%;
+      margin-top: 0.6rem;
+      background: rgba(231,76,60,0.08);
+      border: 1px solid rgba(231,76,60,0.3);
+      color: var(--red);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 0.55rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-remove-img.show { display: flex; }
+    .btn-remove-img:hover { background: rgba(231,76,60,0.18); border-color: var(--red); }
+    .btn-remove-img.is-pending {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--white-10);
+      color: var(--white-60);
+    }
+    .btn-remove-img.is-pending:hover { border-color: var(--white-30); color: var(--white); }
+
+    /* Field dengan tombol kosongkan (untuk URL foto galeri) */
+    .field-with-action {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .field-with-action .field-input { flex: 1; }
+    .btn-clear-input {
+      flex-shrink: 0;
+      width: 38px;
+      background: var(--white-05);
+      border: 1px solid var(--white-10);
+      color: var(--white-30);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .btn-clear-input:hover { color: var(--red); border-color: var(--red); background: rgba(231,76,60,0.08); }
+
     /* Stat cards preview */
     .stat-preview-grid {
       display: grid;
@@ -643,6 +689,7 @@
                 <div class="upload-filename" id="fname-hero"></div>
               </div>
               <img class="img-preview" id="prev-hero" alt="Preview hero">
+              <button type="button" class="btn-remove-img" id="remove-hero">🗑️ Hapus Foto</button>
             </div>
 
             <div class="card">
@@ -654,6 +701,7 @@
                 <div class="upload-filename" id="fname-maps"></div>
               </div>
               <img class="img-preview" id="prev-maps" alt="Preview maps">
+              <button type="button" class="btn-remove-img" id="remove-maps">🗑️ Hapus Foto</button>
             </div>
 
             <div class="card card-full">
@@ -661,23 +709,38 @@
               <div class="panel-grid" style="gap:.75rem">
                 <div class="field">
                   <label class="field-label">Foto Galeri 1</label>
-                  <input class="field-input" id="f-gal1" type="url" placeholder="https://...">
+                  <div class="field-with-action">
+                    <input class="field-input" id="f-gal1" type="url" placeholder="https://...">
+                    <button type="button" class="btn-clear-input" data-target="f-gal1" title="Kosongkan">✕</button>
+                  </div>
                 </div>
                 <div class="field">
                   <label class="field-label">Foto Galeri 2</label>
-                  <input class="field-input" id="f-gal2" type="url" placeholder="https://...">
+                  <div class="field-with-action">
+                    <input class="field-input" id="f-gal2" type="url" placeholder="https://...">
+                    <button type="button" class="btn-clear-input" data-target="f-gal2" title="Kosongkan">✕</button>
+                  </div>
                 </div>
                 <div class="field">
                   <label class="field-label">Foto Galeri 3</label>
-                  <input class="field-input" id="f-gal3" type="url" placeholder="https://...">
+                  <div class="field-with-action">
+                    <input class="field-input" id="f-gal3" type="url" placeholder="https://...">
+                    <button type="button" class="btn-clear-input" data-target="f-gal3" title="Kosongkan">✕</button>
+                  </div>
                 </div>
                 <div class="field">
                   <label class="field-label">Foto Galeri 4</label>
-                  <input class="field-input" id="f-gal4" type="url" placeholder="https://...">
+                  <div class="field-with-action">
+                    <input class="field-input" id="f-gal4" type="url" placeholder="https://...">
+                    <button type="button" class="btn-clear-input" data-target="f-gal4" title="Kosongkan">✕</button>
+                  </div>
                 </div>
                 <div class="field">
                   <label class="field-label">Foto Galeri 5</label>
-                  <input class="field-input" id="f-gal5" type="url" placeholder="https://...">
+                  <div class="field-with-action">
+                    <input class="field-input" id="f-gal5" type="url" placeholder="https://...">
+                    <button type="button" class="btn-clear-input" data-target="f-gal5" title="Kosongkan">✕</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -889,16 +952,55 @@
       // Preview foto
       if (d.heroImg) showPreview('prev-hero', 'fname-hero', d.heroImg, 'Foto tersimpan');
       if (d.mapsImg) showPreview('prev-maps', 'fname-maps', d.mapsImg, 'Foto tersimpan');
+      refreshRemoveButton('heroImg');
+      refreshRemoveButton('mapsImg');
     }
 
     /* =========================================================
        UPLOAD FOTO
        ========================================================= */
+    var imgConfig = {
+      heroImg: { fileId: 'file-hero', prevId: 'prev-hero', fnameId: 'fname-hero', removeId: 'remove-hero' },
+      mapsImg: { fileId: 'file-maps', prevId: 'prev-maps', fnameId: 'fname-maps', removeId: 'remove-maps' }
+    };
+
     function showPreview(prevId, fnameId, src, name) {
       var prev  = document.getElementById(prevId);
       var fname = document.getElementById(fnameId);
       if (prev)  { prev.src = src; prev.classList.add('show'); }
       if (fname) fname.textContent = '✓ ' + name;
+    }
+
+    function clearPreview(prevId, fnameId) {
+      var prev  = document.getElementById(prevId);
+      var fname = document.getElementById(fnameId);
+      if (prev)  { prev.classList.remove('show'); prev.src = ''; }
+      if (fname) fname.textContent = '';
+    }
+
+    // Tampilkan/sembunyikan tombol hapus sesuai kondisi:
+    // - ada pilihan foto baru yang belum disimpan  -> tombol "Batalkan Foto Baru"
+    // - ada foto tersimpan (dari localStorage)      -> tombol "Hapus Foto"
+    // - tidak ada keduanya                          -> tombol disembunyikan
+    function refreshRemoveButton(imgKey) {
+      var conf = imgConfig[imgKey];
+      var btn  = document.getElementById(conf.removeId);
+      if (!btn) return;
+      var hasPending = !!window['_img_' + imgKey];
+      var hasSaved   = !!getSaved()[imgKey];
+
+      if (hasPending) {
+        btn.textContent = '✕ Batalkan Foto Baru';
+        btn.classList.add('is-pending');
+        btn.classList.add('show');
+      } else if (hasSaved) {
+        btn.textContent = '🗑️ Hapus Foto Tersimpan';
+        btn.classList.remove('is-pending');
+        btn.classList.add('show');
+      } else {
+        btn.classList.remove('show');
+        btn.classList.remove('is-pending');
+      }
     }
 
     function setupUpload(fileId, prevId, fnameId, imgKey) {
@@ -907,18 +1009,64 @@
       input.addEventListener('change', function() {
         var file = input.files[0];
         if (!file) return;
-        if (file.size > 5 * 1024 * 1024) { alert('Ukuran file terlalu besar (maks 5MB)'); return; }
+        if (file.size > 5 * 1024 * 1024) { alert('Ukuran file terlalu besar (maks 5MB)'); input.value = ''; return; }
         var reader = new FileReader();
         reader.onload = function(e) {
           showPreview(prevId, fnameId, e.target.result, file.name);
           window['_img_' + imgKey] = e.target.result;
+          refreshRemoveButton(imgKey);
         };
         reader.readAsDataURL(file);
       });
     }
 
+    // Tombol hapus/batalkan foto — mencegah file base64 menumpuk di localStorage
+    function setupRemove(imgKey) {
+      var conf = imgConfig[imgKey];
+      var btn  = document.getElementById(conf.removeId);
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        var hasPending = !!window['_img_' + imgKey];
+
+        if (hasPending) {
+          // Baru dipilih, belum disimpan -> batalkan pilihan, kembalikan ke foto tersimpan (jika ada)
+          delete window['_img_' + imgKey];
+          document.getElementById(conf.fileId).value = '';
+          var saved = getSaved();
+          if (saved[imgKey]) {
+            showPreview(conf.prevId, conf.fnameId, saved[imgKey], 'Foto tersimpan');
+          } else {
+            clearPreview(conf.prevId, conf.fnameId);
+          }
+          showToast('Pemilihan foto baru dibatalkan.');
+        } else {
+          // Hapus foto yang sudah tersimpan agar tidak menumpuk di penyimpanan
+          var d = getSaved();
+          if (d[imgKey]) {
+            delete d[imgKey];
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
+            catch (e) { /* abaikan */ }
+          }
+          document.getElementById(conf.fileId).value = '';
+          clearPreview(conf.prevId, conf.fnameId);
+          showToast('✓ Foto dihapus dari penyimpanan.');
+        }
+        refreshRemoveButton(imgKey);
+      });
+    }
+
     setupUpload('file-hero', 'prev-hero', 'fname-hero', 'heroImg');
     setupUpload('file-maps', 'prev-maps', 'fname-maps', 'mapsImg');
+    setupRemove('heroImg');
+    setupRemove('mapsImg');
+
+    // Tombol kosongkan untuk field URL foto galeri
+    document.querySelectorAll('.btn-clear-input').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var target = document.getElementById(btn.dataset.target);
+        if (target) { target.value = ''; target.focus(); }
+      });
+    });
 
     /* =========================================================
        SIMPAN
@@ -968,6 +1116,8 @@
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
         showToast('✓ Perubahan disimpan! Buka website untuk melihat hasilnya.');
+        refreshRemoveButton('heroImg');
+        refreshRemoveButton('mapsImg');
       } catch(e) {
         alert('Penyimpanan penuh. Hapus foto lama atau kurangi ukuran gambar.');
       }
