@@ -1,0 +1,2738 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pesona Sumber Pitu</title>
+  <meta name="description" content="Sumber mata air yang lahir dari perut bumi, berada di balik perkebunan dan hutan tropis Malang yang hijau abadi.">
+  <meta name="keywords" content="sumber pitu, air terjun malang, wisata malang, waterfall east java, jawa timur">
+  <meta name="author" content="Sumber Pitu">
+  <meta name="theme-color" content="#071410">
+
+  <!-- Open Graph (WhatsApp, Facebook, preview link) -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Pesona Sumber Pitu">
+  <meta property="og:description" content="Sumber mata air yang lahir dari perut bumi, berada di balik perkebunan dan hutan tropis Malang yang hijau abadi.">
+  <meta property="og:image"       content="https://images.unsplash.com/photo-1564419320461-6870880221ad?w=1200&q=80">
+  <meta property="og:url"         content="https://sumberpitu.id">
+
+  
+
+  <!-- Preload hero image agar tidak blank saat pertama load -->
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1564419320461-6870880221ad?w=1800&q=80">
+
+  <!-- Favicon SVG inline -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23071410'/%3E%3Cpath d='M16 4C13 9 10 12 10 17a6 6 0 0 0 12 0c0-5-3-8-6-13z' fill='%234ecdc4'/%3E%3C/svg%3E">
+  <link rel="canonical" href="https://sumberpitu.id">
+
+  <!-- Google Fonts: Oswald (heading) + Lato (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    /* =========================================================
+       PAGE LOADER — Simpel & aman semua browser
+       ========================================================= */
+    #page-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #071410;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    #page-loader.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #fff;
+      text-align: center;
+    }
+
+    .loader-logo span {
+      color: transparent;
+      -webkit-text-stroke: 2px #4ecdc4;
+    }
+
+    .loader-bar-wrap {
+      width: 120px;
+      height: 2px;
+      background: rgba(78,205,196,0.15);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .loader-bar {
+      height: 100%;
+      width: 0%;
+      background: #4ecdc4;
+      border-radius: 2px;
+      animation: loaderFill 1.2s ease forwards;
+    }
+
+    @keyframes loaderFill {
+      0%   { width: 0%; }
+      100% { width: 100%; }
+    }
+    /* =========================================================
+       DESIGN TOKENS
+       ========================================================= */
+    :root {
+      /* Warna utama */
+      --green-deep:    #071410;   /* background paling gelap */
+      --green-dark:    #0a1a10;   /* background section alternate */
+      --green-mid:     #0d1f14;   /* header, card */
+      --green-hover:   #1a3a2a;   /* hover state card */
+      --teal:          #4ecdc4;   /* aksen utama */
+      --white:         #ffffff;
+      --white-80:      rgba(255,255,255,0.80);
+      --white-60:      rgba(255,255,255,0.60);
+      --white-50:      rgba(255,255,255,0.50);
+      --white-40:      rgba(255,255,255,0.40);
+      --white-30:      rgba(255,255,255,0.30);
+      --white-10:      rgba(255,255,255,0.10);
+
+      /* Tipografi */
+      --font-heading: 'Oswald', sans-serif;
+      --font-body:    'Lato', sans-serif;
+
+      /* Spacing */
+      --section-px:   clamp(1.5rem, 6vw, 6rem);
+      --section-py:   6rem;
+
+      /* Transisi */
+      --transition:   all 0.3s ease;
+    }
+
+    /* =========================================================
+       RESET & BASE
+       ========================================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 5.5rem; /* tinggi header fixed + sedikit napas */
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--green-deep);
+      color: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* =========================================================
+       UTILITY CLASSES
+       ========================================================= */
+
+    /* Eyebrow label kecil di atas heading */
+    .eyebrow {
+      font-family: var(--font-heading);
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    /* Heading display besar */
+    .display-heading {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--white);
+    }
+
+    .display-heading .accent {
+      color: var(--teal);
+    }
+
+    /* Section heading berukuran sedang */
+    .section-heading {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      color: var(--white);
+      line-height: 1.1;
+    }
+
+    .section-heading .accent {
+      color: var(--teal);
+    }
+
+    /* Body text besar */
+    .body-lead {
+      font-size: 1.1rem;
+      line-height: 1.75;
+      color: var(--white-60);
+    }
+
+    /* Container max-width */
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin-inline: auto;
+      padding-inline: var(--section-px);
+    }
+
+    /* Tombol CTA utama */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background-color: var(--teal);
+      color: var(--green-mid);
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 1.1rem 2.2rem;
+      transition: var(--transition);
+      border: 2px solid var(--teal);
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--white);
+      border-color: var(--white);
+      color: var(--green-deep);
+    }
+
+    /* Tombol outline */
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background-color: transparent;
+      color: var(--white);
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 1.1rem 2.2rem;
+      border: 2px solid var(--white-40);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    /* Ikon SVG inline kecil */
+    .icon {
+      width: 1rem;
+      height: 1rem;
+      flex-shrink: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .icon-lg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    /* =========================================================
+       ANIMASI SCROLL-IN
+       ========================================================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Delay stagger */
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+
+    /* =========================================================
+       REDUCED MOTION
+       ========================================================= */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background-color: rgba(13, 31, 20, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+      transition: background-color 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 5rem;
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      gap: 0.2rem;
+    }
+
+    .logo-name {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .logo-sub {
+      font-family: var(--font-heading);
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--teal);
+      font-weight: 300;
+    }
+
+    /* Nav desktop */
+    .nav-desktop {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav-link {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-80);
+      transition: color 0.2s ease;
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--teal);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--teal);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Tombol hamburger (mobile) */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      color: var(--white);
+      transition: color 0.2s ease;
+    }
+
+    .nav-toggle:hover {
+      color: var(--teal);
+    }
+
+    .nav-toggle svg {
+      display: block;
+      width: 1.5rem;
+      height: 1.5rem;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    /* Drawer mobile */
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      background-color: var(--green-mid);
+      border-top: 1px solid var(--white-10);
+      padding: 1.5rem var(--section-px);
+      gap: 0;
+    }
+
+    .nav-mobile.open {
+      display: flex;
+    }
+
+    .nav-mobile a {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--white-80);
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--white-10);
+      transition: color 0.2s ease;
+    }
+
+    .nav-mobile a:last-child {
+      border-bottom: none;
+    }
+
+    .nav-mobile a:hover,
+    .nav-mobile a.active {
+      color: var(--teal);
+    }
+
+    /* Spacer agar konten tidak tertutup header fixed */
+    .header-spacer {
+      height: 5rem;
+    }
+
+    /* =========================================================
+       HERO SECTION
+       ========================================================= */
+
+    /* Wrapper utama hero — full viewport height */
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 100svh;          /* svh = safer di mobile */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;  /* konten menempel di bawah */
+      overflow: hidden;
+    }
+
+    /* Layer 1 — Gambar latar (parallax-lite via transform) */
+    .hero-bg {
+      position: absolute;
+      inset: -8%;                  /* lebih besar dari container → ruang parallax */
+      background-image:
+        url('https://images.unsplash.com/photo-1564419320461-6870880221ad?w=1800&q=80');
+      background-size: cover;
+      background-position: center 30%;
+      will-change: transform;
+      transition: transform 0.1s linear;
+    }
+
+    /* Layer 2 — Gradient gelap dari bawah */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(7,20,16,0.97)  0%,
+        rgba(7,20,16,0.70)  35%,
+        rgba(7,20,16,0.20)  65%,
+        rgba(7,20,16,0.05) 100%
+      );
+    }
+
+    /* Layer 3 — Noise texture halus */
+    .hero-noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+      pointer-events: none;
+    }
+
+    /* Konten hero — z di atas semua layer */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding-bottom: 5rem;
+      padding-top: 10rem;         /* ruang di atas (header fixed = 5rem) */
+    }
+
+    /* Grid: kiri teks | kanan stat */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem 6rem;
+      align-items: flex-end;
+    }
+
+    /* Kolom kiri */
+    .hero-left {}
+
+    .hero-heading {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      color: var(--white);
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-heading .accent {
+      color: var(--teal);
+    }
+
+    /* Tulisan outline seperti di referensi — transparan dengan border teal */
+    .hero-heading .outline {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--teal);
+      text-stroke: 2px var(--teal);
+      display: block;
+    }
+
+    .hero-desc {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      line-height: 1.75;
+      color: var(--white-60);
+      max-width: 52ch;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Grup tombol CTA */
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    /* Kolom kanan — stat cards */
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;                    /* gap antar card = garis tipis */
+      align-self: flex-end;
+    }
+
+    .stat-card {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.25rem 1.5rem;
+      background-color: rgba(13,31,20,0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--white-10);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .stat-card:hover {
+      background-color: rgba(78,205,196,0.06);
+      border-color: rgba(78,205,196,0.25);
+    }
+
+    .stat-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      flex-shrink: 0;
+      color: var(--teal);
+    }
+
+    .stat-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .stat-label {
+      font-family: var(--font-heading);
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--white-40);
+      margin-bottom: 0.2rem;
+    }
+
+    .stat-value {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--white);
+    }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-scroll span {
+      font-family: var(--font-heading);
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--white-40);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 3rem;
+      background: linear-gradient(to bottom, var(--teal), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50%       { opacity: 1;   transform: scaleY(1.15); }
+    }
+
+    /* =========================================================
+       HIGHLIGHTS SECTION
+       ========================================================= */
+    .highlights {
+      padding: var(--section-py) var(--section-px);
+      background-color: var(--green-dark);
+    }
+
+    .highlights-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem 5rem;
+      align-items: end;
+      margin-bottom: 4rem;
+    }
+
+    .highlights-desc {
+      color: var(--white-60);
+      font-size: 1rem;
+      line-height: 1.75;
+      align-self: end;
+    }
+
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background-color: var(--white-10);
+    }
+
+    .highlight-card {
+      background-color: var(--green-dark);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      transition: background-color 0.3s ease;
+      cursor: default;
+    }
+
+    .highlight-card:hover {
+      background-color: var(--green-hover);
+    }
+
+    .highlight-icon {
+      width: 3rem;
+      height: 3rem;
+      color: var(--teal);
+      flex-shrink: 0;
+    }
+
+    .highlight-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .highlight-title {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--white);
+    }
+
+    .highlight-body {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--white-60);
+    }
+
+    @media (max-width: 900px) {
+      .highlights-header { grid-template-columns: 1fr; }
+      .highlights-grid   { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 540px) {
+      .highlights-grid { grid-template-columns: 1fr; }
+    }
+
+    /* =========================================================
+       VISITOR INFO SECTION
+       ========================================================= */
+    .visitor-info {
+      padding: var(--section-py) var(--section-px);
+      background-color: var(--green-deep);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Aksen dekoratif pojok kanan atas */
+    .visitor-info::before {
+      content: '';
+      position: absolute;
+      top: -6rem;
+      right: -6rem;
+      width: 28rem;
+      height: 28rem;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(78,205,196,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .visitor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem 6rem;
+      align-items: start;
+    }
+
+    .visitor-left {}
+
+    .info-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      margin-top: 2.5rem;
+      background-color: var(--white-10);
+    }
+
+    .info-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0 1.5rem;
+      align-items: center;
+      background-color: var(--green-deep);
+      padding: 1.5rem 1.75rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .info-card:hover {
+      background-color: var(--green-mid);
+    }
+
+    .info-card-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      color: var(--teal);
+    }
+
+    .info-card-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .info-card-label {
+      font-family: var(--font-heading);
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--white-40);
+      margin-bottom: 0.2rem;
+    }
+
+    .info-card-value {
+      font-size: 0.95rem;
+      color: var(--white-80);
+      line-height: 1.5;
+    }
+
+    /* Kolom kanan: tips + tiket */
+    .visitor-right {}
+
+    .tips-title {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+    }
+
+    .tips-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .tips-list li {
+      display: flex;
+      gap: 0.9rem;
+      font-size: 0.9rem;
+      color: var(--white-60);
+      line-height: 1.6;
+    }
+
+    .tips-list li::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--teal);
+      margin-top: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .ticket-box {
+      border: 1px solid var(--white-10);
+      padding: 2rem;
+      background-color: var(--green-mid);
+    }
+
+    .ticket-box-title {
+      font-family: var(--font-heading);
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.25rem;
+    }
+
+    .ticket-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--white-10);
+      font-size: 0.9rem;
+      color: var(--white-80);
+    }
+
+    .ticket-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .ticket-row .price {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    @media (max-width: 900px) {
+      .visitor-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    /* =========================================================
+       GALLERY SECTION
+       ========================================================= */
+    .gallery {
+      padding: var(--section-py) var(--section-px);
+      background-color: var(--green-dark);
+    }
+
+    .gallery-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .gallery-link {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: gap 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .gallery-link:hover { gap: 0.9rem; }
+
+    /* Masonry-style grid dengan CSS grid areas */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 260px 260px;
+      gap: 6px;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      position: relative;
+      background-color: var(--green-mid);
+    }
+
+    /* Tata letak 5 foto */
+    .gallery-item:nth-child(1) { grid-column: 1 / 6;  grid-row: 1 / 2; }
+    .gallery-item:nth-child(2) { grid-column: 6 / 9;  grid-row: 1 / 2; }
+    .gallery-item:nth-child(3) { grid-column: 9 / 13; grid-row: 1 / 3; }
+    .gallery-item:nth-child(4) { grid-column: 1 / 4;  grid-row: 2 / 3; }
+    .gallery-item:nth-child(5) { grid-column: 4 / 9;  grid-row: 2 / 3; }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease, filter 0.4s ease;
+      filter: brightness(0.88);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.06);
+      filter: brightness(1);
+    }
+
+    /* Overlay teks di atas foto */
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.25rem 1rem 1rem;
+      background: linear-gradient(to top, rgba(7,20,16,0.85), transparent);
+      font-family: var(--font-heading);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--white-80);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .gallery-item:nth-child(1),
+      .gallery-item:nth-child(2),
+      .gallery-item:nth-child(3),
+      .gallery-item:nth-child(4),
+      .gallery-item:nth-child(5) {
+        grid-column: auto;
+        grid-row: auto;
+        height: 220px;
+      }
+      .gallery-item:nth-child(1) { grid-column: 1 / 3; }
+    }
+
+    @media (max-width: 540px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item:nth-child(1) { grid-column: auto; }
+    }
+
+    /* =========================================================
+       CTA SECTION
+       ========================================================= */
+    .cta-section {
+      position: relative;
+      padding: var(--section-py) var(--section-px);
+      overflow: hidden;
+      text-align: center;
+      /* Background: screenshot Google Maps */
+      background-image: url('images/maps-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* Overlay gelap agar teks tetap terbaca di atas maps */
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(4, 20, 12, 0.82);
+      backdrop-filter: blur(1px);
+      -webkit-backdrop-filter: blur(1px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Cincin dekoratif di tengah */
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      width: 32rem;
+      height: 32rem;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid rgba(78,205,196,0.15);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .cta-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 60ch;
+      margin-inline: auto;
+    }
+
+    .cta-heading {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      text-transform: uppercase;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-heading .accent { color: var(--teal); }
+
+    .cta-desc {
+      font-size: 1rem;
+      color: var(--white-60);
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 1.25rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ---- RESPONSIF HERO ---- */
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .hero-right {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1px;
+      }
+
+      .stat-card {
+        flex: 1 1 calc(50% - 1px);
+        min-width: 200px;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .hero-heading {
+        font-size: clamp(2.8rem, 13vw, 4rem);
+      }
+
+      .stat-card {
+        flex: 1 1 100%;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+    .site-footer {
+      background-color: var(--green-mid);
+      border-top: 1px solid var(--white-10);
+      padding: 5rem var(--section-px) 2.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 3rem 4rem;
+      margin-bottom: 4rem;
+    }
+
+    /* Kolom brand */
+    .footer-brand {}
+
+    .footer-logo-name {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .footer-logo-sub {
+      font-family: var(--font-heading);
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.9rem;
+      color: var(--white-50);
+      line-height: 1.75;
+      max-width: 28ch;
+      margin-bottom: 2rem;
+    }
+
+    /* Ikon sosial media */
+    .footer-socials {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .social-btn {
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 1px solid var(--white-10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white-50);
+      transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .social-btn:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+      background-color: rgba(78,205,196,0.06);
+    }
+
+    .social-btn svg {
+      width: 1rem;
+      height: 1rem;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Kolom link */
+    .footer-col-title {
+      font-family: var(--font-heading);
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--white-40);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-links a {
+      font-size: 0.9rem;
+      color: var(--white-60);
+      transition: color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--teal);
+    }
+
+    .footer-links a::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: var(--teal);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .footer-links a:hover::before {
+      opacity: 1;
+    }
+
+    /* Kolom kontak */
+    .footer-contact-item {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .footer-contact-item svg {
+      width: 1rem;
+      height: 1rem;
+      stroke: var(--teal);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .footer-contact-item span {
+      font-size: 0.88rem;
+      color: var(--white-60);
+      line-height: 1.5;
+    }
+
+    /* Divider bawah */
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid var(--white-10);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--white-30);
+    }
+
+    .footer-copy a {
+      color: var(--teal);
+      transition: opacity 0.2s ease;
+    }
+
+    .footer-copy a:hover { opacity: 0.7; }
+
+    .footer-badge {
+      font-family: var(--font-heading);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--white-30);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-badge::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--teal);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    /* Responsif footer */
+    @media (max-width: 900px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+      }
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-brand {
+        grid-column: auto;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* =========================================================
+       HEADER: transparan di atas → solid saat scroll
+       ========================================================= */
+    .site-header.scrolled {
+      background-color: rgba(13,31,20,0.98);
+      box-shadow: 0 2px 40px rgba(0,0,0,0.5);
+    }
+
+    /* =========================================================
+       TAHAP 5 — FINISHING: ANIMASI & POLISH
+       ========================================================= */
+
+    /* --- Page Loader --- */
+
+    .loader-logo {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .loader-logo span { color: var(--teal); }
+    .loader-bar-track {
+      width: 140px;
+      height: 1px;
+      background-color: var(--white-10);
+      overflow: hidden;
+    }
+    .loader-bar-fill {
+      height: 100%;
+      background-color: var(--teal);
+      width: 0%;
+      animation: loaderFill 1.5s ease forwards;
+    }
+    @keyframes loaderFill {
+      0%   { width: 0%; }
+      70%  { width: 85%; }
+      100% { width: 100%; }
+    }
+
+    /* --- Back to top button --- */
+    #back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+      width: 3rem;
+      height: 3rem;
+      background-color: var(--teal);
+      color: var(--green-deep);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+      pointer-events: none;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    #back-to-top:hover { background-color: var(--white); }
+    #back-to-top svg {
+      width: 1.1rem; height: 1.1rem;
+      stroke: currentColor; fill: none;
+      stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* --- Custom scrollbar --- */
+    ::-webkit-scrollbar       { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--green-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--green-hover); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--teal); }
+
+    /* --- Section divider dekoratif --- */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(78,205,196,0.25), transparent);
+    }
+
+    /* --- Nav active saat scroll --- */
+    .nav-link.is-active { color: var(--teal); }
+    .nav-link.is-active::after { width: 100%; }
+
+    /* --- Tombol: active press state --- */
+    .btn-primary, .btn-outline { position: relative; overflow: hidden; }
+    .btn-primary::after, .btn-outline::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.08);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+    .btn-primary:active::after, .btn-outline:active::after { opacity: 1; }
+
+    /* --- Highlight card: border teal saat hover --- */
+    .highlight-card {
+      border-bottom: 2px solid transparent;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    .highlight-card:hover { border-bottom-color: var(--teal); }
+
+    /* --- Ticket box: shine sweep saat hover --- */
+    .ticket-box { position: relative; overflow: hidden; }
+    .ticket-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(78,205,196,0.05), transparent);
+      transition: left 0.55s ease;
+    }
+    .ticket-box:hover::before { left: 150%; }
+
+    /* --- Social btn lift --- */
+    .social-btn {
+      transition: border-color 0.2s ease, color 0.2s ease,
+                  background-color 0.2s ease, transform 0.2s ease;
+    }
+    .social-btn:hover { transform: translateY(-3px); }
+
+    /* --- Gallery img lazy fade-in --- */
+    .gallery-item img {
+      opacity: 0;
+      transition: opacity 0.6s ease, transform 0.6s ease, filter 0.4s ease;
+    }
+    .gallery-item img.loaded { opacity: 1; }
+
+    /* --- Hero animasi masuk --- */
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(22px); letter-spacing: 0.06em; }
+      to   { opacity: 1; transform: translateY(0);    letter-spacing: -0.02em; }
+    }
+    .hero-heading { animation: heroIn 1s ease 0.3s both; }
+    .hero-desc    { animation: heroIn 0.9s ease 0.5s both; }
+    .hero-actions { animation: heroIn 0.9s ease 0.7s both; }
+
+    /* Stat cards stagger */
+    .hero-right .stat-card:nth-child(1) { animation: heroIn 0.8s ease 0.65s both; }
+    .hero-right .stat-card:nth-child(2) { animation: heroIn 0.8s ease 0.80s both; }
+    .hero-right .stat-card:nth-child(3) { animation: heroIn 0.8s ease 0.95s both; }
+    .hero-right .stat-card:nth-child(4) { animation: heroIn 0.8s ease 1.10s both; }
+
+    /* --- Reduced motion: matikan semua --- */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-heading, .hero-desc, .hero-actions,
+      .hero-right .stat-card { animation: none; opacity: 1; transform: none; }
+      .loader-bar-fill        { animation: none; width: 100%; }
+      .scroll-line            { animation: none; }
+      .footer-badge::before   { animation: none; }
+      .gallery-item img       { opacity: 1; }
+      .reveal                 { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* =========================================================
+       FLOATING SHARE BAR
+       ========================================================= */
+    .share-bar {
+      position: fixed;
+      left: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .share-bar.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .share-bar-label {
+      font-family: var(--font-heading);
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--white-30);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      margin-bottom: 0.25rem;
+      text-align: center;
+    }
+
+    .share-btn {
+      width: 2.6rem;
+      height: 2.6rem;
+      border: 1px solid var(--white-10);
+      background-color: rgba(13,31,20,0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white-50);
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease,
+                  background-color 0.2s ease, transform 0.2s ease;
+      position: relative;
+    }
+
+    .share-btn:hover {
+      transform: translateX(4px);
+      border-color: var(--teal);
+      color: var(--teal);
+      background-color: rgba(78,205,196,0.1);
+    }
+
+    .share-btn svg {
+      width: 1rem;
+      height: 1rem;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Tooltip label share */
+    .share-btn::after {
+      content: attr(data-label);
+      position: absolute;
+      left: calc(100% + 0.75rem);
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: var(--green-mid);
+      border: 1px solid var(--white-10);
+      color: var(--white-80);
+      font-family: var(--font-heading);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.75rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      transform: translateY(-50%) translateX(-4px);
+    }
+
+    .share-btn:hover::after {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+
+    /* Garis pemisah share bar */
+    .share-bar-line {
+      width: 1px;
+      height: 3rem;
+      background: linear-gradient(to bottom, transparent, var(--white-10), transparent);
+      margin-inline: auto;
+    }
+
+    @media (max-width: 767px) {
+      .share-bar { display: none; }
+    }
+
+    /* =========================================================
+       ANIMASI ENHANCED — setara Framer Motion
+       ========================================================= */
+
+    /* Reveal dari bawah (default) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.75s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* Reveal dari kiri */
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.75s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* Reveal dari kanan */
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.75s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* Scale-up reveal */
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.75s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .reveal.visible,
+    .reveal-left.visible,
+    .reveal-right.visible,
+    .reveal-scale.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Delay classes */
+    .reveal-d1 { transition-delay: 0.10s; }
+    .reveal-d2 { transition-delay: 0.20s; }
+    .reveal-d3 { transition-delay: 0.30s; }
+    .reveal-d4 { transition-delay: 0.45s; }
+    .reveal-d5 { transition-delay: 0.60s; }
+
+    /* =========================================================
+       PROGRESS BAR READING (top of page)
+       ========================================================= */
+    #reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(to right, var(--teal), #a8edea);
+      z-index: 200;
+      transition: width 0.1s linear;
+      transform-origin: left;
+    }
+
+    /* =========================================================
+       SECTION — URL HASH STATE VISUAL
+       ========================================================= */
+    section[id] {
+      scroll-margin-top: 5.5rem;
+    }
+
+    /* =========================================================
+       LIGHTBOX GALLERY
+       ========================================================= */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background-color: rgba(7,20,16,0.97);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+      cursor: zoom-out;
+    }
+
+    #lightbox.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      object-fit: contain;
+      transform: scale(0.92);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+      cursor: default;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+    }
+
+    #lightbox.open img {
+      transform: scale(1);
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 3rem;
+      height: 3rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--white-10);
+      color: var(--white-80);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    #lightbox-close:hover {
+      background-color: var(--teal);
+      color: var(--green-deep);
+    }
+
+    #lightbox-close svg {
+      width: 1.1rem;
+      height: 1.1rem;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+    }
+
+    #lightbox-caption {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-heading);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--white-50);
+    }
+
+    /* Cursor zoom pada gallery items */
+    .gallery-item { cursor: zoom-in; }
+
+    /* =========================================================
+       TOAST NOTIFIKASI
+       ========================================================= */
+    #toast {
+      position: fixed;
+      bottom: 5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      background-color: var(--green-mid);
+      border: 1px solid var(--teal);
+      color: var(--white-80);
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.75rem;
+      z-index: 300;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      white-space: nowrap;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+
+    /* =========================================================
+       MOBILE RESPONSIF — Safari iOS & Android
+       ========================================================= */
+    html, body { overflow-x: hidden; max-width: 100%; }
+    * { min-width: 0; }
+
+    @media (max-width: 768px) {
+      .nav-desktop { display: none !important; }
+      .nav-toggle  { display: flex !important; }
+      .logo-name   { font-size: 1rem; letter-spacing: 0.12em; }
+      .logo-sub    { font-size: 0.5rem; letter-spacing: 0.2em; }
+      .header-inner { height: 4rem; }
+      .header-spacer { height: 4rem; }
+      .hero { min-height: 100vh; }
+      .hero-grid { grid-template-columns: 1fr !important; }
+      .hero-right { display: none !important; }
+      .hero-heading { font-size: clamp(2.5rem, 12vw, 4rem) !important; }
+      .hero-actions { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      .btn-primary, .btn-outline { width: 100%; justify-content: center; font-size: 0.75rem; }
+      .highlights, .visitor-info, .gallery, .cta-section { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+      .container { padding-inline: 1.25rem; }
+      .highlights-header { grid-template-columns: 1fr !important; }
+      .highlights-grid   { grid-template-columns: 1fr !important; }
+      .visitor-grid      { grid-template-columns: 1fr !important; gap: 2.5rem; }
+      .gallery-grid      { grid-template-columns: 1fr 1fr !important; }
+      .gallery-header    { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .cta-actions       { flex-direction: column; align-items: center; gap: 0.75rem; }
+      .cta-actions .btn-primary, .cta-actions .btn-outline { width: 100%; max-width: 320px; justify-content: center; }
+      .footer-grid       { grid-template-columns: 1fr !important; gap: 2rem; }
+      .footer-bottom     { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid  { grid-template-columns: 1fr !important; }
+      .section-heading { font-size: clamp(1.6rem, 8vw, 2.2rem) !important; }
+      .cta-heading   { font-size: clamp(1.8rem, 9vw, 2.5rem) !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Reading Progress Bar -->
+  <div id="reading-progress" aria-hidden="true"></div>
+
+  <!-- Page Loader -->
+  <!-- PAGE LOADER -->
+  <div id="page-loader" role="status" aria-label="Memuat halaman">
+    <div class="loader-logo">Sumber <span>Pitu</span></div>
+    <div class="loader-bar-wrap">
+      <div class="loader-bar"></div>
+    </div>
+  </div>
+    <div class="loader-bar-track">
+      <div class="loader-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- Back to top -->
+  <button id="back-to-top" aria-label="Kembali ke atas">
+    <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <!-- Floating Share Bar -->
+  <div class="share-bar" id="share-bar" aria-label="Bagikan halaman ini">
+    <span class="share-bar-label">Share</span>
+    <div class="share-bar-line"></div>
+
+    <a class="share-btn" id="share-wa" data-label="WhatsApp" aria-label="Bagikan ke WhatsApp"
+       href="https://wa.me/?text=Kunjungi%20Sumber%20Pitu%2C%20air%20terjun%20tujuh%20sumber%20di%20Malang%20Jawa%20Timur!%20https%3A%2F%2Fsumberpitu.id"
+       target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    </a>
+
+    <a class="share-btn" id="share-ig" data-label="Instagram" aria-label="Buka Instagram"
+       href="https://www.instagram.com/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+
+    <button class="share-btn" id="share-copy" data-label="Salin Link" aria-label="Salin link halaman">
+      <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+    </button>
+
+    <div class="share-bar-line"></div>
+  </div>
+
+  <!-- Lightbox Gallery -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Tampilan foto besar">
+    <button id="lightbox-close" aria-label="Tutup">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <img id="lightbox-img" src="" alt="">
+    <span id="lightbox-caption"></span>
+  </div>
+
+  <!-- Toast notifikasi -->
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <!-- =====================================================
+       HEADER — FIXED, NAVIGASI DESKTOP + MOBILE
+       ===================================================== -->
+  <header class="site-header" id="site-header">
+    <div class="container">
+      <div class="header-inner">
+
+        <!-- Logo -->
+        <a href="#" class="logo" aria-label="Sumber Pitu — Beranda">
+          <span class="logo-name">Sumber Pitu</span>
+          <span class="logo-sub">East Java · Indonesia</span>
+        </a>
+
+        <!-- Navigasi Desktop -->
+        <nav class="nav-desktop" aria-label="Navigasi utama">
+          <a href="#" class="nav-link active">Beranda</a>
+          <a href="#gallery" class="nav-link">Galeri</a>
+          <a href="#visitor-info" class="nav-link">Panduan</a>
+          <a href="#about" class="nav-link">Tentang</a>
+          <a href="#contact" class="nav-link">Kontak</a>
+        </nav>
+
+        <!-- Tombol Hamburger (Mobile) -->
+        <button class="nav-toggle" id="nav-toggle" aria-label="Buka menu" aria-expanded="false" aria-controls="nav-mobile">
+          <!-- Ikon menu (3 garis) -->
+          <svg id="icon-menu" viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="4" y1="6"  x2="20" y2="6"/>
+            <line x1="4" y1="12" x2="20" y2="12"/>
+            <line x1="4" y1="18" x2="20" y2="18"/>
+          </svg>
+          <!-- Ikon tutup (X) -->
+          <svg id="icon-close" viewBox="0 0 24 24" aria-hidden="true" style="display:none;">
+            <line x1="5" y1="5"  x2="19" y2="19"/>
+            <line x1="19" y1="5" x2="5"  y2="19"/>
+          </svg>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Drawer Navigasi Mobile -->
+    <nav class="nav-mobile" id="nav-mobile" aria-label="Navigasi mobile">
+      <a href="#" class="active">Beranda</a>
+      <a href="#gallery">Galeri</a>
+      <a href="#visitor-info">Panduan</a>
+      <a href="#about">Tentang</a>
+      <a href="#contact">Kontak</a>
+    </nav>
+  </header>
+
+  <!-- Spacer agar konten tidak tertutup header -->
+  <div class="header-spacer"></div>
+
+  <!-- =====================================================
+       MAIN CONTENT
+       ===================================================== -->
+  <main>
+
+    <!-- ==================================================
+         HERO SECTION
+         ================================================== -->
+    <section class="hero" id="hero" aria-label="Hero Sumber Pitu">
+
+      <!-- Latar foto + overlay -->
+      <div class="hero-bg" id="hero-bg" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="hero-noise" aria-hidden="true"></div>
+
+      <!-- Konten utama hero -->
+      <div class="hero-content">
+        <div class="container">
+          <div class="hero-grid">
+
+            <!-- Kolom kiri: teks + CTA -->
+            <div class="hero-left">
+              <span class="eyebrow reveal">Jawa Timur · Indonesia</span>
+
+              <h1 class="hero-heading reveal reveal-d1">
+                Sumber<br>
+                <span class="outline">Pitu</span>
+              </h1>
+
+              <p class="hero-desc reveal reveal-d2">
+                Sumber mata air yang lahir dari perut bumi,
+                berada di balik perkebunan dan hutan tropis Malang yang hijau abadi.
+                Biarkan bisikan menjemput langkah anda menuju surga yang tersembunyi.
+              </p>
+
+              <div class="hero-actions reveal reveal-d3">
+                <a href="#visitor-info" class="btn-primary">
+                  Rencanakan Kunjungan
+                  <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                  </svg>
+                </a>
+                <a href="#gallery" class="btn-outline">
+                  Lihat Galeri
+                  <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+                    <path d="m21 15-5-5L5 21"/>
+                  </svg>
+                </a>
+              </div>
+            </div><!-- /hero-left -->
+
+            <!-- Kolom kanan: stat cards -->
+            <div class="hero-right" role="list" aria-label="Fakta singkat Sumber Pitu">
+
+              <!-- Stat 1: Ketinggian -->
+              <div class="stat-card reveal reveal-d1" role="listitem">
+                <div class="stat-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="stat-label">Ketinggian Air Terjun</p>
+                  <p class="stat-value" data-count="40" data-prefix="± " data-suffix=" Meter">± 40 Meter</p>
+                </div>
+              </div>
+
+              <!-- Stat 2: Jumlah sumber -->
+              <div class="stat-card reveal reveal-d2" role="listitem">
+                <div class="stat-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="stat-label">Total Aliran</p>
+                  <p class="stat-value" data-count="14" data-suffix=" Aliran Air">14 Aliran Air</p>
+                </div>
+              </div>
+
+              <!-- Stat 3: Lokasi -->
+              <div class="stat-card reveal reveal-d3" role="listitem">
+                <div class="stat-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="stat-label">Lokasi</p>
+                  <p class="stat-value">Kab. Malang, Jawa Timur</p>
+                </div>
+              </div>
+
+              <!-- Stat 4: Jam buka -->
+              <div class="stat-card reveal reveal-d3" role="listitem">
+                <div class="stat-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="stat-label">Jam Operasional</p>
+                  <p class="stat-value">07.00 – 17.00 WIB</p>
+                </div>
+              </div>
+
+            </div><!-- /hero-right -->
+
+          </div><!-- /hero-grid -->
+        </div><!-- /container -->
+      </div><!-- /hero-content -->
+
+      <!-- Scroll cue -->
+      <div class="hero-scroll" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+
+    </section><!-- /hero -->
+
+    <div class="section-divider"></div>
+
+    <!-- ==================================================
+         HIGHLIGHTS SECTION
+         ================================================== -->
+    <section class="highlights" id="about">
+      <div class="container">
+
+        <div class="highlights-header">
+          <div>
+            <span class="eyebrow reveal">Mengapa Sumber Pitu?</span>
+            <h2 class="section-heading reveal reveal-d1">
+              Lebih dari<br>Sekadar <span class="accent">Mata Air</span>
+            </h2>
+          </div>
+          <p class="highlights-desc reveal reveal-d2">
+            Sumber Pitu bukan sekadar destinasi wisata. Ia adalah sebuah misteri yang hidup,
+            alam liar nan asri, dan keheningan suci. Sebuah ruang untuk memulihkan diri dari hiruk-pikuk duniawi.
+          </p>
+        </div>
+
+        <div class="highlights-grid">
+
+          <div class="highlight-card reveal">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+            </div>
+            <h3 class="highlight-title">Mata Air Kehidupan</h3>
+            <p class="highlight-body">
+              Dipercaya berasal dari sumber mata air bawah tanah yang menyatu alami,
+              menciptakan aliran air yang stabil sepanjang tahun bahkan di tengah musim kemarau.
+            </p>
+          </div>
+
+          <div class="highlight-card reveal reveal-d1">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <h3 class="highlight-title">Kawasan Hutan Lindung</h3>
+            <p class="highlight-body">
+              Dikelilingi hutan tropis yang masih sangat lebat. Menjadikannya rumah dari berbagai flora
+              dan satwa liar. Menawarkan keindahan alam yang sepenuhnya murni.
+            </p>
+          </div>
+
+          <div class="highlight-card reveal reveal-d2">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <h3 class="highlight-title">Jalur Menuju Kesunyian</h3>
+            <p class="highlight-body">
+              Perjalanan melewati jalur hutan alami dan menantang, 
+              dengan ±60 menit perjalanan,
+              memberikan pengalaman perjalanan yang autentik sekaligus menyegarkan pikiran.
+            </p>
+          </div>
+
+          <div class="highlight-card reveal">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <h3 class="highlight-title">Nilai Spiritual & Budaya</h3>
+            <p class="highlight-body">
+              Masyarakat lokal meyakini air Sumber Pitu memiliki khasiat spiritual.
+              Lokasi ini kerap digunakan untuk ritual adat dan meditasi.
+            </p>
+          </div>
+
+          <div class="highlight-card reveal reveal-d1">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+            </div>
+            <h3 class="highlight-title">Spot Foto Megah</h3>
+            <p class="highlight-body">
+              Saksikan kemegahan dinding tebing curam, tempat aliran air menjatuhkan diri kepada Ibu Pertiwi.
+              Menjadi latar foto yang memukau di berbagai sudut pandang.
+            </p>
+          </div>
+
+          <div class="highlight-card reveal reveal-d2">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 19 Q4 17.5 6 19 Q8 20.5 10 19 Q12 17.5 14 19 Q16 20.5 18 19 Q20 17.5 22 19 M2 21.5 Q4 20 6 21.5 Q8 23 10 21.5 Q12 20 14 21.5 Q16 23 18 21.5 Q20 20 22 21.5 M2 16.5 Q4 15 6 16.5 Q8 18 10 16.5 Q12 15 14 16.5 Q16 18 18 16.5 Q20 15 22 16.5"/>
+                <path d="M7 17 L7 7 M17 7 L17 17 M7 10 L17 10 M7 13 L17 13 M7 7 Q7 3 10 3 Q12 3 12 6 M17 7 Q17 3 20 3 Q22 3 22 6 M2 19 Q4 17.5 6 19 Q8 20.5 10 19 Q12 17.5 14 19 Q16 20.5 18 19 Q20 17.5 22 19 M2 21.5 Q4 20 6 21.5 Q8 23 10 21.5 Q12 20 14 21.5 Q16 23 18 21.5 Q20 20 22 21.5 M2 16.5 Q4 15 6 16.5 Q8 18 10 16.5 Q12 15 14 16.5 Q16 18 18 16.5 Q20 15 22 16.5"/>
+            </div>
+            <h3 class="highlight-title">Kolam Air Alami</h3>
+            <p class="highlight-body">
+              Nikmati kesegaran air jernih di kolam yang terletak pada sisi lain air terjun. 
+              Tempat yang cocok untuk melepas penat di tengah ketenangan hutan.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /highlights -->
+
+    <div class="section-divider"></div>
+
+    <!-- ==================================================
+         VISITOR INFO SECTION
+         ================================================== -->
+    <section class="visitor-info" id="visitor-info">
+      <div class="container">
+        <div class="visitor-grid">
+
+          <!-- Kiri: info praktis -->
+          <div class="visitor-left reveal-left">
+            <span class="eyebrow reveal">Sebelum Berkunjung</span>
+            <h2 class="section-heading reveal reveal-d1">
+              Info<br><span class="accent">Lengkap</span>
+            </h2>
+
+            <div class="info-cards reveal reveal-d2">
+
+              <div class="info-card">
+                <div class="info-card-icon">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div>
+                  <p class="info-card-label">Jam Buka</p>
+                  <p class="info-card-value">Setiap hari ·                                                                                                      07.00 – 17.00 WIB</p>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="info-card-icon">
+                  <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div>
+                  <p class="info-card-label">Lokasi</p>
+                  <p class="info-card-value">Desa Duwet Krajan, Kec. Tumpang<br>Kab. Malang, Jawa Timur</p>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="info-card-icon">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+                <div>
+                  <p class="info-card-label">Fasilitas</p>
+                  <p class="info-card-value">Tempat Parkir · Gazebo · Kolam Pemandian · Warung Gerobak </p>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="info-card-icon">
+                  <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div>
+                  <p class="info-card-label">Kontak Pengelola</p>
+                  <p class="info-card-value">+62 881-0272-02516</p>
+                </div>
+              </div>
+
+            </div><!-- /info-cards -->
+          </div><!-- /visitor-left -->
+
+          <!-- Kanan: tips + tiket -->
+          <div class="visitor-right reveal-right reveal-d1">
+            <p class="tips-title">Tips Perjalanan</p>
+            <ul class="tips-list">
+              <li>Datang pagi hari (sebelum 09.00) untuk menghindari keramaian dan mendapatkan cahaya terbaik untuk foto.</li>
+              <li>Gunakan alas kaki yang kuat dan anti slip, jalur berbatu dan bisa licin saat musim hujan.</li>
+              <li>Bawa pakaian ganti dan kantong plastik untuk melindungi barang elektronik dari percikan air.</li>
+              <li>Hindari berkunjung saat musim hujan lebat karena debit air meningkat dan jalur bisa berbahaya.</li>
+              <li>Tidak ada sinyal seluler yang kuat di area air terjun.</li>
+              <li>Jaga kebersihan,bawa pulang sampahmu dan hormati alam sekitar.</li>
+            </ul>
+
+            <div class="ticket-box">
+              <p class="ticket-box-title">Harga Tiket Masuk</p>
+              <div class="ticket-row">
+              </div>
+              <div class="ticket-row">
+                <span>Parkir Motor</span>
+                <span class="price">Rp 5.000</span>
+              </div>
+            </div>
+          </div><!-- /visitor-right -->
+
+        </div>
+      </div>
+    </section><!-- /visitor-info -->
+
+    <div class="section-divider"></div>
+
+    <!-- ==================================================
+         GALLERY SECTION
+         ================================================== -->
+    <section class="gallery" id="gallery">
+      <div class="container">
+
+        <div class="gallery-header">
+          <div>
+            <span class="eyebrow reveal">Galeri Foto</span>
+            <h2 class="section-heading reveal reveal-d1">
+              Keindahan yang<br><span class="accent">Bicara Sendiri</span>
+            </h2>
+          </div>
+          <a href="#gallery" class="gallery-link reveal">
+            Lihat semua foto
+            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <div class="gallery-grid reveal-scale">
+
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1564419320461-6870880221ad?w=900&q=75"
+                 alt="Air terjun utama Sumber Pitu" loading="lazy">
+            <span class="gallery-caption">Foto 1</span>
+          </div>
+
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=600&q=75"
+                 alt="Kolam alami di bawah air terjun" loading="lazy">
+            <span class="gallery-caption">Foto 2</span>
+          </div>
+
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=700&q=75"
+                 alt="Hutan tropis jalur trekking" loading="lazy">
+            <span class="gallery-caption">Foto 3</span>
+          </div>
+
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75"
+                 alt="Pemandangan alam sekitar Malang" loading="lazy">
+            <span class="gallery-caption">Foto 4</span>
+          </div>
+
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=800&q=75"
+                 alt="Refleksi air jernih di kolam" loading="lazy">
+            <span class="gallery-caption">Foto 5</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- /gallery -->
+
+    <!-- ==================================================
+         CTA SECTION
+         ================================================== -->
+    <section class="cta-section" id="contact">
+      <div class="cta-inner">
+        <span class="eyebrow reveal">Siap Bertualang?</span>
+        <h2 class="cta-heading reveal reveal-d1">
+          Alam Menunggumu<br><span class="accent">di Sini</span>
+        </h2>
+        <p class="cta-desc reveal reveal-d2">
+          Rencanakan perjalananmu sekarang. Sumber Pitu terbuka setiap hari
+          dan selalu siap menyambut jiwa-jiwa yang haus akan ketenangan alam.
+        </p>
+        <div class="cta-actions reveal reveal-d3">
+          <a href="https://www.google.com/maps/place/Sumber+Pitu+Waterfall/@-8.0135832,112.8217266,17z/data=!3m1!4b1!4m6!3m5!1s0x2dd63ac87acac5d5:0x923963e602a1b0e2!8m2!3d-8.0135832!4d112.8217266!16s%2Fg%2F11bwh4mzms?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3Dm" target="_blank" rel="noopener" class="btn-primary">
+            Buka di Google Maps
+            <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/6281234567890" target="_blank" rel="noopener" class="btn-outline">
+            Hubungi Pengelola
+            <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section><!-- /cta -->
+
+    <!-- ==================================================
+         FOOTER
+         ================================================== -->
+    <footer class="site-footer" id="footer">
+      <div class="container">
+
+        <div class="footer-grid">
+
+          <!-- Brand column -->
+          <div class="footer-brand">
+            <span class="footer-logo-name">Sumber Pitu</span>
+            <span class="footer-logo-sub">Waterfall · East Java</span>
+            <p class="footer-tagline">
+              Sumber mata air yang menjadi air terjun memukau
+              di jantung hutan tropis Malang.
+            </p>
+            <div class="footer-socials">
+              <!-- Instagram -->
+              <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram Sumber Pitu">
+                <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              </a>
+              <!-- YouTube -->
+              <a href="https://www.youtube.com/" target="_blank" rel="noopener" class="social-btn" aria-label="YouTube Sumber Pitu">
+                <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+              </a>
+              <!-- TikTok -->
+              <a href="https://www.tiktok.com/" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok Sumber Pitu">
+                <svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Navigasi -->
+          <div>
+            <p class="footer-col-title">Navigasi</p>
+            <ul class="footer-links">
+              <li><a href="#">Beranda</a></li>
+              <li><a href="#about">Tentang Kami</a></li>
+              <li><a href="#gallery">Galeri Foto</a></li>
+              <li><a href="#visitor-info">Panduan Kunjungan</a></li>
+              <li><a href="#contact">Kontak</a></li>
+            </ul>
+          </div>
+
+          <!-- Informasi -->
+          <div>
+            <p class="footer-col-title">Informasi</p>
+            <ul class="footer-links">
+              <li><a href="#visitor-info">Harga Tiket</a></li>
+              <li><a href="#contact">Cara Menuju Lokasi</a></li>
+              <li><a href="#visitor-info">Tips Berkunjung</a></li>
+              <li><a href="#visitor-info">FAQ</a></li>
+              <li><a href="#contact">Kebijakan Privasi</a></li>
+            </ul>
+          </div>
+
+          <!-- Kontak -->
+          <div>
+            <p class="footer-col-title">Kontak</p>
+            <div class="footer-contact-item">
+              <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Desa Duwet Krajan, Kec. Tumpang<br>Kab. Malang, Jawa Timur</span>
+            </div>
+            <div class="footer-contact-item">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>+62 881-0272-02516</span>
+            </div>
+            <div class="footer-contact-item">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Setiap Hari<br>07.00 – 17.00 WIB</span>
+            </div>
+          </div>
+
+        </div><!-- /footer-grid -->
+
+        <!-- Footer bottom bar -->
+        <div class="footer-bottom">
+          <p class="footer-copy">
+            &copy; 2025 Sumber Pitu. Dibuat dengan cinta dan penuh kasih sayang. 
+          </p>
+          <span class="footer-badge">Buka Hari Ini</span>
+        </div>
+
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- =====================================================
+       SCRIPT FINAL — Lengkap & Siap Pakai
+       ===================================================== -->
+  <script>
+    (function () {
+
+      /* -------------------------------------------------------
+         1. PAGE LOADER
+         ------------------------------------------------------- */
+      /* -------------------------------------------------------
+         SCROLL REVEAL
+         ------------------------------------------------------- */
+      const revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.10 });
+
+      /* -------------------------------------------------------
+         PAGE LOADER — aman Safari iOS, Chrome Android, file lokal
+         ------------------------------------------------------- */
+      var loader = document.getElementById('page-loader');
+
+      function hideLoader() {
+        if (loader) loader.classList.add('hide');
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale')
+          .forEach(function (el) { revealObserver.observe(el); });
+      }
+
+      // Hilang setelah 1.4 detik — paksa, tidak tunggu event apapun
+      setTimeout(hideLoader, 1400);
+
+      /* -------------------------------------------------------
+         3. MOBILE MENU
+         ------------------------------------------------------- */
+      const toggle    = document.getElementById('nav-toggle');
+      const drawer    = document.getElementById('nav-mobile');
+      const iconMenu  = document.getElementById('icon-menu');
+      const iconClose = document.getElementById('icon-close');
+
+      toggle.addEventListener('click', function () {
+        const isOpen = drawer.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', isOpen);
+        iconMenu.style.display  = isOpen ? 'none'  : 'block';
+        iconClose.style.display = isOpen ? 'block' : 'none';
+      });
+
+      drawer.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          drawer.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+          iconMenu.style.display  = 'block';
+          iconClose.style.display = 'none';
+        });
+      });
+
+      /* -------------------------------------------------------
+         4. PARALLAX HERO (ringan, rAF-throttled)
+         ------------------------------------------------------- */
+      const heroBg = document.getElementById('hero-bg');
+      if (heroBg) {
+        let ticking = false;
+        window.addEventListener('scroll', function () {
+          if (!ticking) {
+            requestAnimationFrame(function () {
+              heroBg.style.transform = 'translateY(' + (window.scrollY * 0.28) + 'px)';
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }, { passive: true });
+      }
+
+      /* -------------------------------------------------------
+         5. HEADER solid + ACTIVE NAV + URL HASH saat scroll
+         ------------------------------------------------------- */
+      const header   = document.getElementById('site-header');
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-link');
+      const progress = document.getElementById('reading-progress');
+
+      let hashTimeout = null;
+
+      window.addEventListener('scroll', function () {
+        const scrollY = window.scrollY;
+        const docH    = document.body.scrollHeight - window.innerHeight;
+
+        // Header solid
+        header.classList.toggle('scrolled', scrollY > 60);
+
+        // Reading progress bar
+        if (progress) {
+          progress.style.width = (docH > 0 ? (scrollY / docH) * 100 : 0) + '%';
+        }
+
+        // Active nav + URL hash update
+        let current = '';
+        sections.forEach(function (sec) {
+          if (scrollY >= sec.offsetTop - 140) {
+            current = sec.getAttribute('id');
+          }
+        });
+
+        navLinks.forEach(function (link) {
+          link.classList.remove('is-active');
+          const href = link.getAttribute('href').replace('#', '');
+          if (href === current) link.classList.add('is-active');
+        });
+
+        // Update URL hash — try/catch karena history.replaceState
+        // diblokir di srcdoc iframe (preview Claude), tapi normal di browser
+        clearTimeout(hashTimeout);
+        hashTimeout = setTimeout(function () {
+          try {
+            const newHash = current ? '#' + current : location.pathname;
+            if (location.hash !== '#' + current) {
+              history.replaceState(null, '', newHash);
+            }
+          } catch (e) { /* silent — sandbox restriction */ }
+        }, 200);
+
+      }, { passive: true });
+
+      /* -------------------------------------------------------
+         6. BACK TO TOP
+         ------------------------------------------------------- */
+      const backBtn = document.getElementById('back-to-top');
+      window.addEventListener('scroll', function () {
+        backBtn.classList.toggle('visible', window.scrollY > 500);
+      }, { passive: true });
+      backBtn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      /* -------------------------------------------------------
+         7. STAT COUNTER (angka naik saat masuk viewport)
+         ------------------------------------------------------- */
+      function animateCount(el, target, duration) {
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || '';
+        let start = 0;
+        const step = target / (duration / 16);
+        const timer = setInterval(function () {
+          start += step;
+          if (start >= target) { start = target; clearInterval(timer); }
+          el.textContent = prefix + Math.round(start).toLocaleString('id-ID') + suffix;
+        }, 16);
+      }
+
+      const counterObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            animateCount(el, parseInt(el.dataset.count, 10), 1200);
+            counterObserver.unobserve(el);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll('[data-count]').forEach(function (el) {
+        counterObserver.observe(el);
+      });
+
+      /* -------------------------------------------------------
+         8. GALLERY — lazy fade-in + LIGHTBOX
+         ------------------------------------------------------- */
+      const lightbox    = document.getElementById('lightbox');
+      const lbImg       = document.getElementById('lightbox-img');
+      const lbCaption   = document.getElementById('lightbox-caption');
+      const lbClose     = document.getElementById('lightbox-close');
+
+      document.querySelectorAll('.gallery-item').forEach(function (item) {
+        const img = item.querySelector('img');
+
+        // Lazy fade-in
+        if (img) {
+          if (img.complete) {
+            img.classList.add('loaded');
+          } else {
+            img.addEventListener('load', function () { img.classList.add('loaded'); });
+          }
+        }
+
+        // Buka lightbox saat klik
+        item.addEventListener('click', function () {
+          if (!img) return;
+          lbImg.src = img.src.replace(/w=\d+/, 'w=1600');
+          lbImg.alt = img.alt;
+          lbCaption.textContent = item.querySelector('.gallery-caption')
+            ? item.querySelector('.gallery-caption').textContent : '';
+          lightbox.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      function closeLightbox() {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+        setTimeout(function () { lbImg.src = ''; }, 400);
+      }
+
+      lbClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeLightbox();
+      });
+
+      /* -------------------------------------------------------
+         9. FLOATING SHARE BAR
+         ------------------------------------------------------- */
+      const shareBar = document.getElementById('share-bar');
+
+      // Tampil setelah scroll melewati hero
+      window.addEventListener('scroll', function () {
+        shareBar.classList.toggle('visible', window.scrollY > window.innerHeight * 0.5);
+      }, { passive: true });
+
+      // Salin link
+      const copyBtn = document.getElementById('share-copy');
+      if (copyBtn) {
+        copyBtn.addEventListener('click', function () {
+          navigator.clipboard.writeText(window.location.href).then(function () {
+            showToast('Link berhasil disalin!');
+          }).catch(function () {
+            // Fallback untuk browser yang tidak support clipboard API
+            const ta = document.createElement('textarea');
+            ta.value = window.location.href;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast('Link berhasil disalin!');
+          });
+        });
+      }
+
+      /* -------------------------------------------------------
+         10. TOAST NOTIFIKASI
+         ------------------------------------------------------- */
+      const toast = document.getElementById('toast');
+      let toastTimer = null;
+
+      function showToast(msg, duration) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toast.classList.remove('show');
+        }, duration || 2800);
+      }
+
+      /* -------------------------------------------------------
+         11. RESPONSIVE NAV (desktop vs mobile)
+         ------------------------------------------------------- */
+      const mq = window.matchMedia('(max-width: 767px)');
+
+      function handleBreakpoint(e) {
+        const navDesktop = document.querySelector('.nav-desktop');
+        if (e.matches) {
+          toggle.style.display = 'block';
+          navDesktop.style.display = 'none';
+        } else {
+          toggle.style.display = 'none';
+          drawer.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+          iconMenu.style.display  = 'block';
+          iconClose.style.display = 'none';
+          navDesktop.style.display = 'flex';
+        }
+      }
+
+      mq.addEventListener('change', handleBreakpoint);
+      handleBreakpoint(mq);
+
+      /* -------------------------------------------------------
+         12. COPYRIGHT TAHUN OTOMATIS
+         ------------------------------------------------------- */
+      const copyEl = document.querySelector('.footer-copy');
+      if (copyEl) {
+        copyEl.innerHTML = copyEl.innerHTML.replace(
+          /\d{4}/,
+          new Date().getFullYear()
+        );
+      }
+
+    })();
+  </script>
+
+</body>
+</html>
