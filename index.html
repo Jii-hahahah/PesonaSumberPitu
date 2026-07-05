@@ -1981,11 +1981,11 @@
               <span class="eyebrow reveal">Jawa Timur · Indonesia</span>
 
               <h1 class="hero-heading reveal reveal-d1">
-                Sumber<br>
-                <span class="outline">Pitu</span>
+                <span id="d-line1">Sumber</span><br>
+                <span class="outline" id="d-line2">Pitu</span>
               </h1>
 
-              <p class="hero-desc reveal reveal-d2">
+              <p class="hero-desc reveal reveal-d2" id="d-desc">
                 Sumber mata air yang lahir dari perut bumi,
                 berada di balik perkebunan dan hutan tropis Malang yang hijau abadi.
                 Biarkan bisikan menjemput langkah anda menuju surga yang tersembunyi.
@@ -1993,13 +1993,13 @@
 
               <div class="hero-actions reveal reveal-d3">
                 <a href="#visitor-info" class="btn-primary">
-                  Rencanakan Kunjungan
+                  <span id="d-btn1">Rencanakan Kunjungan</span>
                   <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
                   </svg>
                 </a>
                 <a href="#gallery" class="btn-outline">
-                  Lihat Galeri
+                  <span id="d-btn2">Lihat Galeri</span>
                   <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true">
                     <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
                     <path d="m21 15-5-5L5 21"/>
@@ -2021,8 +2021,8 @@
                   </svg>
                 </div>
                 <div>
-                  <p class="stat-label">Ketinggian Air Terjun</p>
-                  <p class="stat-value" data-count="40" data-prefix="± " data-suffix=" Meter">± 40 Meter</p>
+                  <p class="stat-label" id="d-stat1-label">Ketinggian Air Terjun</p>
+                  <p class="stat-value" id="d-stat1-val" data-count="40" data-prefix="± " data-suffix=" Meter">± 40 Meter</p>
                 </div>
               </div>
 
@@ -2034,8 +2034,8 @@
                   </svg>
                 </div>
                 <div>
-                  <p class="stat-label">Total Aliran</p>
-                  <p class="stat-value" data-count="14" data-suffix=" Aliran Air">14 Aliran Air</p>
+                  <p class="stat-label" id="d-stat2-label">Total Aliran</p>
+                  <p class="stat-value" id="d-stat2-val" data-count="14" data-suffix=" Aliran Air">14 Aliran Air</p>
                 </div>
               </div>
 
@@ -2048,8 +2048,8 @@
                   </svg>
                 </div>
                 <div>
-                  <p class="stat-label">Lokasi</p>
-                  <p class="stat-value">Kab. Malang, Jawa Timur</p>
+                  <p class="stat-label" id="d-stat3-label">Lokasi</p>
+                  <p class="stat-value" id="d-stat3-val">Kab. Malang, Jawa Timur</p>
                 </div>
               </div>
 
@@ -2062,8 +2062,8 @@
                   </svg>
                 </div>
                 <div>
-                  <p class="stat-label">Jam Operasional</p>
-                  <p class="stat-value">07.00 – 17.00 WIB</p>
+                  <p class="stat-label" id="d-stat4-label">Jam Operasional</p>
+                  <p class="stat-value" id="d-stat4-val">07.00 – 17.00 WIB</p>
                 </div>
               </div>
 
@@ -2201,7 +2201,7 @@
                 </div>
                 <div>
                   <p class="info-card-label">Jam Buka</p>
-                  <p class="info-card-value">Setiap hari ·                                                                                                      07.00 – 17.00 WIB</p>
+                  <p class="info-card-value" id="d-jam-buka">Setiap hari · 07.00 – 17.00 WIB</p>
                 </div>
               </div>
 
@@ -2211,7 +2211,7 @@
                 </div>
                 <div>
                   <p class="info-card-label">Lokasi</p>
-                  <p class="info-card-value">Desa Duwet Krajan, Kec. Tumpang<br>Kab. Malang, Jawa Timur</p>
+                  <p class="info-card-value" id="d-alamat">Desa Duwet Krajan, Kec. Tumpang<br>Kab. Malang, Jawa Timur</p>
                 </div>
               </div>
 
@@ -2231,7 +2231,7 @@
                 </div>
                 <div>
                   <p class="info-card-label">Kontak Pengelola</p>
-                  <p class="info-card-value">+62 881-0272-02516</p>
+                  <p class="info-card-value" id="d-kontak-wa">+62 881-0272-02516</p>
                 </div>
               </div>
 
@@ -2253,10 +2253,20 @@
             <div class="ticket-box">
               <p class="ticket-box-title">Harga Tiket Masuk</p>
               <div class="ticket-row">
+                <span>Tiket Dewasa</span>
+                <span class="price" id="d-tiket-dewasa">Rp 10.000</span>
+              </div>
+              <div class="ticket-row">
+                <span>Tiket Anak</span>
+                <span class="price" id="d-tiket-anak">Rp 5.000</span>
               </div>
               <div class="ticket-row">
                 <span>Parkir Motor</span>
-                <span class="price">Rp 5.000</span>
+                <span class="price" id="d-parkir-motor">Rp 3.000</span>
+              </div>
+              <div class="ticket-row">
+                <span>Parkir Mobil</span>
+                <span class="price" id="d-parkir-mobil">Rp 5.000</span>
               </div>
             </div>
           </div><!-- /visitor-right -->
@@ -2289,31 +2299,31 @@
         <div class="gallery-grid reveal-scale">
 
           <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1564419320461-6870880221ad?w=900&q=75"
+            <img id="d-gal1" src="https://images.unsplash.com/photo-1564419320461-6870880221ad?w=900&q=75"
                  alt="Air terjun utama Sumber Pitu" loading="lazy">
             <span class="gallery-caption">Foto 1</span>
           </div>
 
           <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=600&q=75"
+            <img id="d-gal2" src="https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=600&q=75"
                  alt="Kolam alami di bawah air terjun" loading="lazy">
             <span class="gallery-caption">Foto 2</span>
           </div>
 
           <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=700&q=75"
+            <img id="d-gal3" src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=700&q=75"
                  alt="Hutan tropis jalur trekking" loading="lazy">
             <span class="gallery-caption">Foto 3</span>
           </div>
 
           <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75"
+            <img id="d-gal4" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75"
                  alt="Pemandangan alam sekitar Malang" loading="lazy">
             <span class="gallery-caption">Foto 4</span>
           </div>
 
           <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=800&q=75"
+            <img id="d-gal5" src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=800&q=75"
                  alt="Refleksi air jernih di kolam" loading="lazy">
             <span class="gallery-caption">Foto 5</span>
           </div>
@@ -2337,13 +2347,13 @@
           dan selalu siap menyambut jiwa-jiwa yang haus akan ketenangan alam.
         </p>
         <div class="cta-actions reveal reveal-d3">
-          <a href="https://www.google.com/maps/place/Sumber+Pitu+Waterfall/@-8.0135832,112.8217266,17z/data=!3m1!4b1!4m6!3m5!1s0x2dd63ac87acac5d5:0x923963e602a1b0e2!8m2!3d-8.0135832!4d112.8217266!16s%2Fg%2F11bwh4mzms?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3Dm" target="_blank" rel="noopener" class="btn-primary">
+          <a id="d-cta-gmaps" href="https://www.google.com/maps/place/Sumber+Pitu+Waterfall/@-8.0135832,112.8217266,17z/data=!3m1!4b1!4m6!3m5!1s0x2dd63ac87acac5d5:0x923963e602a1b0e2!8m2!3d-8.0135832!4d112.8217266!16s%2Fg%2F11bwh4mzms?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3Dm" target="_blank" rel="noopener" class="btn-primary">
             Buka di Google Maps
             <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>
             </svg>
           </a>
-          <a href="https://wa.me/6281234567890" target="_blank" rel="noopener" class="btn-outline">
+          <a id="d-cta-wa" href="https://wa.me/6281234567890" target="_blank" rel="noopener" class="btn-outline">
             Hubungi Pengelola
             <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
@@ -2371,15 +2381,19 @@
             </p>
             <div class="footer-socials">
               <!-- Instagram -->
-              <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram Sumber Pitu">
+              <a id="d-social-ig" href="https://www.instagram.com/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram Sumber Pitu">
                 <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
               </a>
+              <!-- Facebook -->
+              <a id="d-social-fb" href="https://www.facebook.com/" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook Sumber Pitu" style="display:none;">
+                <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </a>
               <!-- YouTube -->
-              <a href="https://www.youtube.com/" target="_blank" rel="noopener" class="social-btn" aria-label="YouTube Sumber Pitu">
+              <a id="d-social-yt" href="https://www.youtube.com/" target="_blank" rel="noopener" class="social-btn" aria-label="YouTube Sumber Pitu">
                 <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
               </a>
               <!-- TikTok -->
-              <a href="https://www.tiktok.com/" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok Sumber Pitu">
+              <a id="d-social-tt" href="https://www.tiktok.com/" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok Sumber Pitu">
                 <svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
               </a>
             </div>
@@ -2414,15 +2428,15 @@
             <p class="footer-col-title">Kontak</p>
             <div class="footer-contact-item">
               <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Desa Duwet Krajan, Kec. Tumpang<br>Kab. Malang, Jawa Timur</span>
+              <span id="d-footer-alamat">Desa Duwet Krajan, Kec. Tumpang<br>Kab. Malang, Jawa Timur</span>
             </div>
             <div class="footer-contact-item">
               <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <span>+62 881-0272-02516</span>
+              <span id="d-footer-wa">+62 881-0272-02516</span>
             </div>
             <div class="footer-contact-item">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <span>Setiap Hari<br>07.00 – 17.00 WIB</span>
+              <span id="d-footer-jam">Setiap Hari<br>07.00 – 17.00 WIB</span>
             </div>
           </div>
 
@@ -2446,6 +2460,107 @@
        ===================================================== -->
   <script>
     (function () {
+
+      /* -------------------------------------------------------
+         0. SYNC DATA DARI ADMIN PANEL (localStorage)
+         Key sama persis dengan admin.html: 'sp_admin_data'
+         ------------------------------------------------------- */
+      (function applyAdminData() {
+        var STORAGE_KEY = 'sp_admin_data';
+        var d;
+        try { d = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+        catch (e) { d = {}; }
+
+        function setText(id, val) {
+          if (val === undefined || val === null || val === '') return;
+          var el = document.getElementById(id);
+          if (el) el.textContent = val;
+        }
+
+        function setHTML(id, val) {
+          if (val === undefined || val === null || val === '') return;
+          var el = document.getElementById(id);
+          if (el) el.innerHTML = val.replace(/\n/g, '<br>');
+        }
+
+        function setSrc(id, val) {
+          if (!val) return;
+          var el = document.getElementById(id);
+          if (el) el.src = val;
+        }
+
+        function setHref(id, val) {
+          if (!val) return;
+          var el = document.getElementById(id);
+          if (el) el.href = val;
+        }
+
+        function stopAutoCount(id) {
+          var el = document.getElementById(id);
+          if (el) el.removeAttribute('data-count');
+        }
+
+        // Beranda / Hero
+        setText('d-line1', d.line1);
+        setText('d-line2', d.line2);
+        setText('d-desc',  d.desc);
+        setText('d-btn1',  d.btn1);
+        setText('d-btn2',  d.btn2);
+
+        if (d.stat1Val) stopAutoCount('d-stat1-val');
+        if (d.stat2Val) stopAutoCount('d-stat2-val');
+        setText('d-stat1-label', d.stat1Label);
+        setText('d-stat1-val',   d.stat1Val);
+        setText('d-stat2-label', d.stat2Label);
+        setText('d-stat2-val',   d.stat2Val);
+        setText('d-stat3-label', d.stat3Label);
+        setText('d-stat3-val',   d.stat3Val);
+        setText('d-stat4-label', d.stat4Label);
+        setText('d-stat4-val',   d.stat4Val);
+
+        // Hero background image
+        if (d.heroImg) {
+          var heroBg = document.getElementById('hero-bg');
+          if (heroBg) heroBg.style.backgroundImage = "url('" + d.heroImg + "')";
+        }
+
+        // Info & Tiket
+        if (d.hari || d.jam) {
+          setText('d-jam-buka', (d.hari || 'Setiap hari') + ' · ' + (d.jam || '07.00 – 17.00 WIB'));
+        }
+        setHTML('d-alamat', d.alamat);
+        setHTML('d-footer-alamat', d.alamat);
+        setText('d-tiket-dewasa', d.tiketDewasa);
+        setText('d-tiket-anak',   d.tiketAnak);
+        setText('d-parkir-motor', d.parkirMotor);
+        setText('d-parkir-mobil', d.parkirMobil);
+
+        // Galeri
+        setSrc('d-gal1', d.gal1);
+        setSrc('d-gal2', d.gal2);
+        setSrc('d-gal3', d.gal3);
+        setSrc('d-gal4', d.gal4);
+        setSrc('d-gal5', d.gal5);
+
+        // Kontak & Sosmed
+        if (d.wa) {
+          var waDigits  = d.wa.replace(/[^0-9]/g, '').replace(/^0/, '62');
+          var waMessage = encodeURIComponent(d.waMsg || 'Halo, saya ingin bertanya tentang Sumber Pitu Waterfall.');
+          setHref('d-cta-wa', 'https://wa.me/' + waDigits + '?text=' + waMessage);
+          setText('d-kontak-wa', d.wa);
+          setText('d-footer-wa', d.wa);
+        }
+        if (d.gmaps) setHref('d-cta-gmaps', d.gmaps);
+
+        if (d.ig) { setHref('d-social-ig', d.ig); setHref('share-ig', d.ig); }
+        if (d.yt) { setHref('d-social-yt', d.yt); }
+        if (d.tt) { setHref('d-social-tt', d.tt); }
+        if (d.fb) {
+          setHref('d-social-fb', d.fb);
+          var fbEl = document.getElementById('d-social-fb');
+          if (fbEl) fbEl.style.display = '';
+        }
+      })();
 
       /* -------------------------------------------------------
          1. PAGE LOADER
