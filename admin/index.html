@@ -475,6 +475,31 @@
     }
     .toast.show { opacity: 1; transform: translateY(0); }
 
+    /* ===================== HAMBURGER (mobile) ===================== */
+    .btn-hamburger {
+      display: none;
+      background: var(--white-05);
+      border: 1px solid var(--white-10);
+      color: var(--white);
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-right: 0.75rem;
+    }
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 998;
+    }
+    .sidebar-overlay.show { display: block; }
+
     /* ===================== RESPONSIF ===================== */
     @media (max-width: 860px) {
       .sidebar { width: 200px; }
@@ -482,8 +507,21 @@
       .card-full { grid-column: 1; }
     }
     @media (max-width: 600px) {
-      .sidebar { display: none; }
+      .btn-hamburger { display: flex; }
+      .sidebar {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 999;
+        width: 260px;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+      }
+      .sidebar.open { transform: translateX(0); }
       .main-body { padding: 1.25rem; }
+      .main-header { padding: 1rem 1.25rem; }
     }
   </style>
 </head>
@@ -507,8 +545,10 @@
   <!-- ===================== APP ===================== -->
   <div id="app">
 
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
     <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
       <div class="sidebar-brand">
         <div class="sidebar-brand-name">Sumber <span>Pitu</span></div>
         <div class="sidebar-brand-sub">Waterfall · East Java</div>
@@ -546,9 +586,12 @@
     <!-- KONTEN UTAMA -->
     <div class="main">
       <div class="main-header">
-        <div>
-          <div class="main-title" id="panel-title">Beranda</div>
-          <div class="main-subtitle" id="panel-subtitle">Edit judul, deskripsi, dan tombol hero section</div>
+        <div style="display:flex; align-items:center;">
+          <button class="btn-hamburger" id="btn-hamburger" aria-label="Buka menu">☰</button>
+          <div>
+            <div class="main-title" id="panel-title">Beranda</div>
+            <div class="main-subtitle" id="panel-subtitle">Edit judul, deskripsi, dan tombol hero section</div>
+          </div>
         </div>
         <button class="btn-save" id="btn-save">💾 Simpan</button>
       </div>
@@ -889,8 +932,27 @@
         document.getElementById('panel-' + key).classList.add('active');
         document.getElementById('panel-title').textContent    = panelTitles[key][0];
         document.getElementById('panel-subtitle').textContent = panelTitles[key][1];
+        closeSidebar();
       });
     });
+
+    /* =========================================================
+       SIDEBAR MOBILE (hamburger toggle)
+       ========================================================= */
+    var sidebarEl   = document.getElementById('sidebar');
+    var overlayEl   = document.getElementById('sidebar-overlay');
+    var hamburgerEl = document.getElementById('btn-hamburger');
+
+    function openSidebar() {
+      sidebarEl.classList.add('open');
+      overlayEl.classList.add('show');
+    }
+    function closeSidebar() {
+      sidebarEl.classList.remove('open');
+      overlayEl.classList.remove('show');
+    }
+    if (hamburgerEl) hamburgerEl.addEventListener('click', openSidebar);
+    if (overlayEl) overlayEl.addEventListener('click', closeSidebar);
 
     /* =========================================================
        SIMPAN & LOAD DATA
