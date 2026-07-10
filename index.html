@@ -1844,6 +1844,23 @@
       .cta-heading   { font-size: clamp(1.8rem, 9vw, 2.5rem) !important; }
     }
   </style>
+  <!-- ============================================================
+       FIREBASE (harus sama persis dengan config di admin.html)
+       ============================================================ -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey:            "AIzaSyA1bD1-ZMXHLEQebQKADuWBHtz4StH3e3I",
+      authDomain:        "sumber-pitu.firebaseapp.com",
+      projectId:         "sumber-pitu",
+      storageBucket:     "sumber-pitu.firebasestorage.app",
+      messagingSenderId: "52936679136",
+      appId:             "1:52936679136:web:5026d460e4309a0e1f3a85"
+    };
+    firebase.initializeApp(firebaseConfig);
+    var siteDocRef = firebase.firestore().collection('site').doc('config');
+  </script>
 </head>
 <body>
 
@@ -2462,14 +2479,13 @@
     (function () {
 
       /* -------------------------------------------------------
-         0. SYNC DATA DARI ADMIN PANEL (localStorage)
-         Key sama persis dengan admin.html: 'sp_admin_data'
+         0. SYNC DATA DARI ADMIN PANEL (Firestore, real-time)
+         Dokumen sama persis dengan admin.html: site/config
          ------------------------------------------------------- */
       (function applyAdminData() {
-        var STORAGE_KEY = 'sp_admin_data';
-        var d;
-        try { d = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
-        catch (e) { d = {}; }
+
+        function render(d) {
+          d = d || {};
 
         function setText(id, val) {
           if (val === undefined || val === null || val === '') return;
@@ -2560,6 +2576,16 @@
           var fbEl = document.getElementById('d-social-fb');
           if (fbEl) fbEl.style.display = '';
         }
+        } // /render
+
+        // Ambil data sekali di awal, lalu dengarkan perubahan real-time
+        // supaya kalau admin mengubah data, halaman ini ikut ter-update
+        // otomatis tanpa perlu di-refresh manual.
+        siteDocRef.onSnapshot(function(doc) {
+          render(doc.exists ? doc.data() : {});
+        }, function(err) {
+          console.error('Gagal memuat data dari server:', err);
+        });
       })();
 
       /* -------------------------------------------------------
