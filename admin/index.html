@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin_Pesona-Sumber-Pitu</title>
+  <title>Admin — Sumber Pitu Waterfall</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -524,6 +524,29 @@
       .main-header { padding: 1rem 1.25rem; }
     }
   </style>
+  <!-- ============================================================
+       FIREBASE
+       Ganti nilai di bawah ini dengan config dari Firebase Console
+       Project Settings → General → Your apps → SDK setup and configuration
+       ============================================================ -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey:            "AIzaSyA1bD1-ZMXHLEQebQKADuWBHtz4StH3e3I",
+      authDomain:        "sumber-pitu.firebaseapp.com",
+      projectId:         "sumber-pitu",
+      storageBucket:     "sumber-pitu.firebasestorage.app",
+      messagingSenderId: "52936679136",
+      appId:             "1:52936679136:web:5026d460e4309a0e1f3a85"
+    };
+    firebase.initializeApp(firebaseConfig);
+    var auth = firebase.auth();
+    var db   = firebase.firestore();
+    // Dokumen tunggal tempat semua data website disimpan
+    var siteDocRef = db.collection('site').doc('config');
+  </script>
 </head>
 <body>
 
@@ -532,6 +555,8 @@
     <div class="login-card">
       <div class="login-logo">Sumber <span>Pitu</span></div>
       <div class="login-sub">Panel Admin</div>
+      <label class="login-label" for="email">Email</label>
+      <input type="email" id="email" class="login-input" placeholder="admin@email.com" autocomplete="username" style="margin-bottom:1rem;">
       <label class="login-label" for="pwd">Password</label>
       <input type="password" id="pwd" class="login-input" placeholder="••••••••" autocomplete="current-password">
       <button class="login-btn" id="login-btn">Masuk →</button>
@@ -802,6 +827,10 @@
                 <input class="field-input" id="f-ig" type="url" placeholder="https://instagram.com/sumberpitu">
               </div>
               <div class="field">
+                <label class="field-label">Facebook</label>
+                <input class="field-input" id="f-fb" type="url" placeholder="https://facebook.com/sumberpitu">
+              </div>
+              <div class="field">
                 <label class="field-label">YouTube</label>
                 <input class="field-input" id="f-yt" type="url" placeholder="https://youtube.com/@sumberpitu">
               </div>
@@ -869,43 +898,54 @@
     /* =========================================================
        KONFIGURASI
        ========================================================= */
-    var STORAGE_KEY  = 'sp_admin_data';
-    var PASS_KEY     = 'sp_admin_pass';
-    var DEFAULT_PASS = 'giantanjai'; // ← Password default
+    var STORAGE_KEY  = 'sp_admin_data'; // hanya dipakai sbg fallback cache lokal
 
     /* =========================================================
-       LOGIN
+       LOGIN (Firebase Authentication)
        ========================================================= */
     var loginScreen = document.getElementById('login-screen');
     var appEl       = document.getElementById('app');
+    var emailInput  = document.getElementById('email');
     var pwdInput    = document.getElementById('pwd');
     var loginBtn    = document.getElementById('login-btn');
     var loginError  = document.getElementById('login-error');
 
-    function getPass() {
-      return localStorage.getItem(PASS_KEY) || DEFAULT_PASS;
+    function doLogin() {
+      loginError.textContent = '';
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Memproses...';
+      auth.signInWithEmailAndPassword(emailInput.value.trim(), pwdInput.value)
+        .catch(function(err) {
+          loginError.textContent = '✕ Email atau password salah.';
+          pwdInput.value = '';
+          pwdInput.focus();
+        })
+        .finally(function() {
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'Masuk →';
+        });
     }
 
-    function doLogin() {
-      if (pwdInput.value === getPass()) {
+    loginBtn.addEventListener('click', doLogin);
+    pwdInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
+    emailInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
+
+    // Pantau status login Firebase secara otomatis
+    auth.onAuthStateChanged(function(user) {
+      if (user) {
         loginScreen.classList.add('hide');
         appEl.classList.add('show');
         pwdInput.value = '';
         loginError.textContent = '';
         loadAllFields();
       } else {
-        loginError.textContent = '✕ Password salah. Coba lagi.';
-        pwdInput.value = '';
-        pwdInput.focus();
+        appEl.classList.remove('show');
+        loginScreen.classList.remove('hide');
       }
-    }
-
-    loginBtn.addEventListener('click', doLogin);
-    pwdInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
+    });
 
     document.getElementById('btn-logout').addEventListener('click', function() {
-      appEl.classList.remove('show');
-      loginScreen.classList.remove('hide');
+      auth.signOut();
     });
 
     /* =========================================================
@@ -951,12 +991,11 @@
     if (overlayEl) overlayEl.addEventListener('click', closeSidebar);
 
     /* =========================================================
-       SIMPAN & LOAD DATA
+       SIMPAN & LOAD DATA (Firestore)
        ========================================================= */
-    function getSaved() {
-      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
-      catch(e) { return {}; }
-    }
+    var cachedData = {}; // salinan lokal data dari Firestore, disinkron tiap load & save
+
+    function getSaved() { return cachedData; }
 
     function setVal(id, val) {
       var el = document.getElementById(id);
@@ -969,7 +1008,16 @@
     }
 
     function loadAllFields() {
-      var d = getSaved();
+      siteDocRef.get().then(function(doc) {
+        cachedData = doc.exists ? (doc.data() || {}) : {};
+        renderFields(cachedData);
+      }).catch(function(err) {
+        console.error(err);
+        showToast('✕ Gagal memuat data dari server. Cek koneksi internet.');
+      });
+    }
+
+    function renderFields(d) {
       // Beranda
       setVal('f-line1',      d.line1      || 'Sumber');
       setVal('f-line2',      d.line2      || 'Pitu');
@@ -1038,7 +1086,7 @@
 
     // Tampilkan/sembunyikan tombol hapus sesuai kondisi:
     // - ada pilihan foto baru yang belum disimpan  -> tombol "Batalkan Foto Baru"
-    // - ada foto tersimpan (dari localStorage)      -> tombol "Hapus Foto"
+    // - ada foto tersimpan (di server)               -> tombol "Hapus Foto"
     // - tidak ada keduanya                          -> tombol disembunyikan
     function refreshRemoveButton(imgKey) {
       var conf = imgConfig[imgKey];
@@ -1078,7 +1126,7 @@
       });
     }
 
-    // Tombol hapus/batalkan foto — mencegah file base64 menumpuk di localStorage
+    // Tombol hapus/batalkan foto — mencegah data base64 menumpuk di server
     function setupRemove(imgKey) {
       var conf = imgConfig[imgKey];
       var btn  = document.getElementById(conf.removeId);
@@ -1098,16 +1146,20 @@
           }
           showToast('Pemilihan foto baru dibatalkan.');
         } else {
-          // Hapus foto yang sudah tersimpan agar tidak menumpuk di penyimpanan
+          // Hapus foto yang sudah tersimpan di server agar tidak menumpuk
           var d = getSaved();
           if (d[imgKey]) {
             delete d[imgKey];
-            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
-            catch (e) { /* abaikan */ }
+            siteDocRef.set(d).then(function() {
+              cachedData = d;
+              showToast('✓ Foto dihapus dari server.');
+            }).catch(function(err) {
+              console.error(err);
+              showToast('✕ Gagal menghapus foto di server.');
+            });
           }
           document.getElementById(conf.fileId).value = '';
           clearPreview(conf.prevId, conf.fnameId);
-          showToast('✓ Foto dihapus dari penyimpanan.');
         }
         refreshRemoveButton(imgKey);
       });
@@ -1171,28 +1223,41 @@
       if (window._img_heroImg) { d.heroImg = window._img_heroImg; delete window._img_heroImg; }
       if (window._img_mapsImg) { d.mapsImg = window._img_mapsImg; delete window._img_mapsImg; }
 
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
-        showToast('✓ Perubahan disimpan! Buka website untuk melihat hasilnya.');
-        refreshRemoveButton('heroImg');
-        refreshRemoveButton('mapsImg');
-      } catch(e) {
-        alert('Penyimpanan penuh. Hapus foto lama atau kurangi ukuran gambar.');
-      }
+      var saveBtn = document.getElementById('btn-save');
+      saveBtn.disabled = true;
+      saveBtn.textContent = '💾 Menyimpan...';
+
+      siteDocRef.set(d)
+        .then(function() {
+          cachedData = d;
+          showToast('✓ Perubahan disimpan! Semua pengunjung & device akan melihat perubahan ini.');
+          refreshRemoveButton('heroImg');
+          refreshRemoveButton('mapsImg');
+        })
+        .catch(function(err) {
+          console.error(err);
+          if (err && err.code === 'invalid-argument') {
+            alert('Ukuran data terlalu besar (biasanya karena foto). Kurangi ukuran foto atau gunakan URL foto dari internet.');
+          } else {
+            alert('Gagal menyimpan ke server. Cek koneksi internet lalu coba lagi.');
+          }
+        })
+        .finally(function() {
+          saveBtn.disabled = false;
+          saveBtn.textContent = '💾 Simpan';
+        });
     });
 
     /* =========================================================
-       GANTI PASSWORD
+       GANTI PASSWORD (Firebase Authentication)
        ========================================================= */
     document.getElementById('btn-change-pass').addEventListener('click', function() {
       var oldPass  = document.getElementById('f-pass-old').value;
       var newPass  = document.getElementById('f-pass-new').value;
       var confirm  = document.getElementById('f-pass-confirm').value;
       var errEl    = document.getElementById('pass-error');
+      errEl.textContent = '';
 
-      if (oldPass !== getPass()) {
-        errEl.textContent = '✕ Password saat ini salah.'; return;
-      }
       if (newPass.length < 6) {
         errEl.textContent = '✕ Password baru minimal 6 karakter.'; return;
       }
@@ -1200,12 +1265,25 @@
         errEl.textContent = '✕ Konfirmasi password tidak cocok.'; return;
       }
 
-      localStorage.setItem(PASS_KEY, newPass);
-      errEl.textContent = '';
-      document.getElementById('f-pass-old').value    = '';
-      document.getElementById('f-pass-new').value    = '';
-      document.getElementById('f-pass-confirm').value = '';
-      showToast('✓ Password berhasil diubah!');
+      var user = auth.currentUser;
+      if (!user) { errEl.textContent = '✕ Sesi login tidak ditemukan, coba login ulang.'; return; }
+
+      var cred = firebase.auth.EmailAuthProvider.credential(user.email, oldPass);
+      user.reauthenticateWithCredential(cred)
+        .then(function() { return user.updatePassword(newPass); })
+        .then(function() {
+          document.getElementById('f-pass-old').value     = '';
+          document.getElementById('f-pass-new').value     = '';
+          document.getElementById('f-pass-confirm').value = '';
+          showToast('✓ Password berhasil diubah!');
+        })
+        .catch(function(err) {
+          if (err.code === 'auth/wrong-password') {
+            errEl.textContent = '✕ Password saat ini salah.';
+          } else {
+            errEl.textContent = '✕ Gagal mengubah password: ' + err.message;
+          }
+        });
     });
 
     /* =========================================================
@@ -1220,8 +1298,10 @@
 
     /* =========================================================
        AUTO-APPLY KE WEBSITE UTAMA
-       Data disimpan di localStorage dengan key yang sama,
-       sehingga index.html otomatis membacanya.
+       Data disimpan di Firestore (dokumen site/config).
+       index.html membaca dokumen yang sama secara real-time,
+       sehingga perubahan di sini otomatis terlihat oleh SEMUA
+       pengunjung, di semua device (bukan cuma browser ini).
        ========================================================= */
   </script>
 
