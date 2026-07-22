@@ -429,24 +429,150 @@
     }
     .btn-remove-img.is-pending:hover { border-color: var(--white-30); color: var(--white); }
 
-    /* Field dengan tombol kosongkan (untuk URL foto galeri) */
-    .field-with-action {
-      display: flex;
-      gap: 0.5rem;
+    /* ===================== GALERI UPLOAD ===================== */
+    .galeri-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
     }
-    .field-with-action .field-input { flex: 1; }
-    .btn-clear-input {
-      flex-shrink: 0;
-      width: 38px;
-      background: var(--white-05);
-      border: 1px solid var(--white-10);
-      color: var(--white-30);
-      border-radius: 6px;
+
+    .galeri-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      border: 1.5px dashed rgba(78,205,196,0.2);
+      aspect-ratio: 4/3;
       cursor: pointer;
-      font-size: 0.9rem;
       transition: all 0.2s;
     }
-    .btn-clear-input:hover { color: var(--red); border-color: var(--red); background: rgba(231,76,60,0.08); }
+    .galeri-item:hover { border-color: var(--teal); }
+
+    .galeri-item input[type=file] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+
+    .galeri-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      z-index: 1;
+    }
+    .galeri-placeholder-icon { font-size: 1.75rem; opacity: 0.4; }
+    .galeri-placeholder-label {
+      font-size: 0.65rem;
+      color: var(--white-30);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .galeri-placeholder-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.6rem;
+      color: rgba(78,205,196,0.4);
+      letter-spacing: 0.15em;
+    }
+
+    .galeri-preview-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      display: none;
+      border-radius: 6px;
+    }
+    .galeri-preview-img.show { display: block; }
+
+    .galeri-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      z-index: 3;
+      border-radius: 6px;
+    }
+    .galeri-item:hover .galeri-overlay.has-img { display: flex; }
+
+    .galeri-overlay-text {
+      font-size: 0.7rem;
+      color: var(--white);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    .galeri-btn-remove {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      z-index: 4;
+      background: rgba(231,76,60,0.85);
+      border: none;
+      color: white;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      font-size: 0.7rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .galeri-btn-remove.show { display: flex; }
+    .galeri-btn-remove:hover { background: var(--red); transform: scale(1.1); }
+
+    /* Progress bar upload */
+    .galeri-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      z-index: 5;
+      display: none;
+    }
+    .galeri-progress.show { display: block; }
+    .galeri-progress-bar {
+      height: 100%;
+      background: var(--teal);
+      width: 0%;
+      transition: width 0.2s;
+    }
+
+    /* Badge status */
+    .galeri-badge {
+      position: absolute;
+      bottom: 6px;
+      left: 6px;
+      z-index: 4;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 10px;
+      display: none;
+    }
+    .galeri-badge.show { display: block; }
+    .galeri-badge.saved { background: rgba(78,205,196,0.2); color: var(--teal); }
+    .galeri-badge.uploading { background: rgba(255,200,0,0.2); color: #ffd700; }
+    .galeri-badge.error { background: rgba(231,76,60,0.2); color: var(--red); }
 
     /* Stat cards preview */
     .stat-preview-grid {
@@ -505,15 +631,14 @@
       .sidebar { width: 200px; }
       .panel-grid, .panel-grid-3 { grid-template-columns: 1fr; }
       .card-full { grid-column: 1; }
+      .galeri-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
     }
     @media (max-width: 600px) {
       .btn-hamburger { display: flex; }
       .sidebar {
         display: flex;
         position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
+        top: 0; left: 0; bottom: 0;
         z-index: 999;
         width: 260px;
         transform: translateX(-100%);
@@ -522,13 +647,11 @@
       .sidebar.open { transform: translateX(0); }
       .main-body { padding: 1.25rem; }
       .main-header { padding: 1rem 1.25rem; }
+      .galeri-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
-  <!-- ============================================================
-       FIREBASE
-       Ganti nilai di bawah ini dengan config dari Firebase Console
-       Project Settings → General → Your apps → SDK setup and configuration
-       ============================================================ -->
+
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
@@ -542,10 +665,10 @@
       appId:             "1:52936679136:web:5026d460e4309a0e1f3a85"
     };
     firebase.initializeApp(firebaseConfig);
-    var auth = firebase.auth();
-    var db   = firebase.firestore();
-    // Dokumen tunggal tempat semua data website disimpan
+    var auth       = firebase.auth();
+    var db         = firebase.firestore();
     var siteDocRef = db.collection('site').doc('config');
+    var galeriDocRef = db.collection('site').doc('galeri');
   </script>
 </head>
 <body>
@@ -561,9 +684,7 @@
       <input type="password" id="pwd" class="login-input" placeholder="••••••••" autocomplete="current-password">
       <button class="login-btn" id="login-btn">Masuk →</button>
       <div class="login-error" id="login-error"></div>
-      <div class="login-hint">
-        Hanya untuk pengelola resmi<br>Sumber Pitu
-      </div>
+      <div class="login-hint">Hanya untuk pengelola resmi<br>Sumber Pitu</div>
     </div>
   </div>
 
@@ -601,9 +722,7 @@
       </nav>
 
       <div class="sidebar-footer">
-        <a href="../index.html" target="_blank" class="btn-preview">
-          🌐 Lihat Website
-        </a>
+        <a href="../index.html" target="_blank" class="btn-preview">🌐 Lihat Website</a>
         <button class="btn-logout" id="btn-logout">Keluar</button>
       </div>
     </aside>
@@ -626,7 +745,6 @@
         <!-- PANEL: BERANDA -->
         <div class="panel active" id="panel-beranda">
           <div class="panel-grid">
-
             <div class="card">
               <div class="card-title">🔤 Judul Utama (Hero)</div>
               <div class="field">
@@ -688,14 +806,12 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
 
         <!-- PANEL: INFO & TIKET -->
         <div class="panel" id="panel-info">
           <div class="panel-grid">
-
             <div class="card">
               <div class="card-title">⏰ Jam Operasional</div>
               <div class="field">
@@ -740,7 +856,6 @@
                 <input class="field-input" id="f-trek" type="text" placeholder="30 – 45 menit">
               </div>
             </div>
-
           </div>
         </div>
 
@@ -748,6 +863,7 @@
         <div class="panel" id="panel-foto">
           <div class="panel-grid">
 
+            <!-- Foto Hero -->
             <div class="card">
               <div class="card-title">🏔️ Foto Hero (Banner Utama)</div>
               <div class="upload-area">
@@ -760,56 +876,25 @@
               <button type="button" class="btn-remove-img" id="remove-hero">🗑️ Hapus Foto</button>
             </div>
 
-            <div class="card">
-              <div class="card-title">🗺️ Foto Background Maps (CTA)</div>
-              <div class="upload-area">
-                <input type="file" id="file-maps" accept="image/*">
-                <div class="upload-icon">🗺️</div>
-                <div class="upload-text">Klik untuk pilih screenshot maps<br><span style="opacity:.5">JPG/PNG · Maks 5MB</span></div>
-                <div class="upload-filename" id="fname-maps"></div>
-              </div>
-              <img class="img-preview" id="prev-maps" alt="Preview maps">
-              <button type="button" class="btn-remove-img" id="remove-maps">🗑️ Hapus Foto</button>
-            </div>
 
+            <!-- Galeri Upload -->
             <div class="card card-full">
-              <div class="card-title">🖼️ URL Foto Galeri</div>
-              <div class="panel-grid" style="gap:.75rem">
-                <div class="field">
-                  <label class="field-label">Foto Galeri 1</label>
-                  <div class="field-with-action">
-                    <input class="field-input" id="f-gal1" type="url" placeholder="https://...">
-                    <button type="button" class="btn-clear-input" data-target="f-gal1" title="Kosongkan">✕</button>
-                  </div>
-                </div>
-                <div class="field">
-                  <label class="field-label">Foto Galeri 2</label>
-                  <div class="field-with-action">
-                    <input class="field-input" id="f-gal2" type="url" placeholder="https://...">
-                    <button type="button" class="btn-clear-input" data-target="f-gal2" title="Kosongkan">✕</button>
-                  </div>
-                </div>
-                <div class="field">
-                  <label class="field-label">Foto Galeri 3</label>
-                  <div class="field-with-action">
-                    <input class="field-input" id="f-gal3" type="url" placeholder="https://...">
-                    <button type="button" class="btn-clear-input" data-target="f-gal3" title="Kosongkan">✕</button>
-                  </div>
-                </div>
-                <div class="field">
-                  <label class="field-label">Foto Galeri 4</label>
-                  <div class="field-with-action">
-                    <input class="field-input" id="f-gal4" type="url" placeholder="https://...">
-                    <button type="button" class="btn-clear-input" data-target="f-gal4" title="Kosongkan">✕</button>
-                  </div>
-                </div>
-                <div class="field">
-                  <label class="field-label">Foto Galeri 5</label>
-                  <div class="field-with-action">
-                    <input class="field-input" id="f-gal5" type="url" placeholder="https://...">
-                    <button type="button" class="btn-clear-input" data-target="f-gal5" title="Kosongkan">✕</button>
-                  </div>
-                </div>
+              <div class="card-title">
+                🖼️ Foto Galeri
+                <span style="font-size:0.55rem;color:var(--white-30);font-family:'Lato',sans-serif;font-weight:400;letter-spacing:0.05em;text-transform:none;margin-left:auto;">
+                  Klik kotak → pilih foto → otomatis terupload ke server
+                </span>
+              </div>
+              <div class="galeri-grid" id="galeri-grid">
+                <!-- 5 slot galeri, dibuat oleh JS -->
+              </div>
+              <div style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid var(--white-05);">
+                <p style="font-size:0.68rem;color:var(--white-30);line-height:1.6;">
+                  💡 <strong style="color:var(--white-60)">Info:</strong> 
+                  Foto dikompres otomatis di browser (maks ~150KB/foto) lalu disimpan di Firestore dokumen terpisah — 
+                  <strong style="color:var(--white-60)">tanpa perlu Firebase Storage / upgrade Blaze.</strong>
+                  Klik foto untuk ganti, ✕ untuk hapus. Klik <strong style="color:var(--white-60)">Simpan</strong> untuk menyimpan semua perubahan.
+                </p>
               </div>
             </div>
 
@@ -819,7 +904,6 @@
         <!-- PANEL: KONTAK & SOSMED -->
         <div class="panel" id="panel-kontak">
           <div class="panel-grid">
-
             <div class="card">
               <div class="card-title">📱 Media Sosial</div>
               <div class="field">
@@ -853,7 +937,6 @@
                 <input class="field-input" id="f-gmaps" type="url" placeholder="https://maps.google.com/...">
               </div>
             </div>
-
           </div>
         </div>
 
@@ -884,20 +967,13 @@
 
       </div><!-- /main-body -->
     </div><!-- /main -->
-
   </div><!-- /app -->
 
-  <!-- Toast -->
   <div class="toast" id="toast"></div>
 
   <script>
     /* =========================================================
-       KONFIGURASI
-       ========================================================= */
-    var STORAGE_KEY  = 'sp_admin_data'; // hanya dipakai sbg fallback cache lokal
-
-    /* =========================================================
-       LOGIN (Firebase Authentication)
+       LOGIN
        ========================================================= */
     var loginScreen = document.getElementById('login-screen');
     var appEl       = document.getElementById('app');
@@ -911,7 +987,7 @@
       loginBtn.disabled = true;
       loginBtn.textContent = 'Memproses...';
       auth.signInWithEmailAndPassword(emailInput.value.trim(), pwdInput.value)
-        .catch(function(err) {
+        .catch(function() {
           loginError.textContent = '✕ Email atau password salah.';
           pwdInput.value = '';
           pwdInput.focus();
@@ -926,7 +1002,6 @@
     pwdInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
     emailInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
 
-    // Pantau status login Firebase secara otomatis
     auth.onAuthStateChanged(function(user) {
       if (user) {
         loginScreen.classList.add('hide');
@@ -934,25 +1009,24 @@
         pwdInput.value = '';
         loginError.textContent = '';
         loadAllFields();
+        initGaleriSlots();
       } else {
         appEl.classList.remove('show');
         loginScreen.classList.remove('hide');
       }
     });
 
-    document.getElementById('btn-logout').addEventListener('click', function() {
-      auth.signOut();
-    });
+    document.getElementById('btn-logout').addEventListener('click', function() { auth.signOut(); });
 
     /* =========================================================
-       NAVIGASI SIDEBAR
+       NAVIGASI
        ========================================================= */
     var panelTitles = {
-      beranda:  ['Beranda',       'Edit judul, deskripsi, dan tombol hero section'],
-      info:     ['Info & Tiket',  'Atur jam buka, harga tiket, dan informasi lokasi'],
-      foto:     ['Foto & Galeri', 'Ganti foto hero, background maps, dan foto galeri'],
+      beranda:  ['Beranda',         'Edit judul, deskripsi, dan tombol hero section'],
+      info:     ['Info & Tiket',    'Atur jam buka, harga tiket, dan informasi lokasi'],
+      foto:     ['Foto & Galeri',   'Ganti foto hero dan foto galeri'],
       kontak:   ['Kontak & Sosmed', 'Atur link media sosial, WhatsApp, dan Google Maps'],
-      password: ['Ganti Password', 'Ubah password login admin panel'],
+      password: ['Ganti Password',  'Ubah password login admin panel'],
     };
 
     document.querySelectorAll('.nav-item').forEach(function(item) {
@@ -969,101 +1043,87 @@
     });
 
     /* =========================================================
-       SIDEBAR MOBILE (hamburger toggle)
+       SIDEBAR MOBILE
        ========================================================= */
     var sidebarEl   = document.getElementById('sidebar');
     var overlayEl   = document.getElementById('sidebar-overlay');
     var hamburgerEl = document.getElementById('btn-hamburger');
 
-    function openSidebar() {
-      sidebarEl.classList.add('open');
-      overlayEl.classList.add('show');
-    }
-    function closeSidebar() {
-      sidebarEl.classList.remove('open');
-      overlayEl.classList.remove('show');
-    }
+    function openSidebar()  { sidebarEl.classList.add('open');    overlayEl.classList.add('show'); }
+    function closeSidebar() { sidebarEl.classList.remove('open'); overlayEl.classList.remove('show'); }
     if (hamburgerEl) hamburgerEl.addEventListener('click', openSidebar);
-    if (overlayEl) overlayEl.addEventListener('click', closeSidebar);
+    if (overlayEl)   overlayEl.addEventListener('click', closeSidebar);
 
     /* =========================================================
-       SIMPAN & LOAD DATA (Firestore)
+       DATA (Firestore)
        ========================================================= */
-    var cachedData = {}; // salinan lokal data dari Firestore, disinkron tiap load & save
+    var cachedData   = {};
+    var cachedGaleri = {};
 
     function getSaved() { return cachedData; }
-
-    function setVal(id, val) {
-      var el = document.getElementById(id);
-      if (el && val !== undefined) el.value = val;
-    }
-
-    function getVal(id) {
-      var el = document.getElementById(id);
-      return el ? el.value.trim() : '';
-    }
+    function setVal(id, val) { var el = document.getElementById(id); if (el && val !== undefined) el.value = val; }
+    function getVal(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
 
     function loadAllFields() {
-      siteDocRef.get().then(function(doc) {
-        cachedData = doc.exists ? (doc.data() || {}) : {};
+      Promise.all([
+        siteDocRef.get(),
+        galeriDocRef.get()
+      ]).then(function(results) {
+        cachedData   = results[0].exists ? (results[0].data() || {}) : {};
+        cachedGaleri = results[1].exists ? (results[1].data() || {}) : {};
         renderFields(cachedData);
+        renderGaleri(cachedGaleri);
       }).catch(function(err) {
         console.error(err);
-        showToast('✕ Gagal memuat data dari server. Cek koneksi internet.');
+        showToast('✕ Gagal memuat data dari server.');
       });
     }
 
     function renderFields(d) {
-      // Beranda
-      setVal('f-line1',      d.line1      || 'Sumber');
-      setVal('f-line2',      d.line2      || 'Pitu');
-      setVal('f-desc',       d.desc       || 'Sumber mata air yang lahir dari perut bumi, berada di balik perkebunan dan hutan tropis Malang yang hijau abadi. Biarkan bisikan menjemput langkah anda menuju surga yang tersembunyi.');
-      setVal('f-btn1',       d.btn1       || 'Rencanakan Kunjungan');
-      setVal('f-btn2',       d.btn2       || 'Lihat Galeri');
-      setVal('f-stat1-label', d.stat1Label || 'Ketinggian Air Terjun');
-      setVal('f-stat1-val',   d.stat1Val   || '± 40 Meter');
-      setVal('f-stat2-label', d.stat2Label || 'Total Aliran');
-      setVal('f-stat2-val',   d.stat2Val   || '14 Aliran Air');
-      setVal('f-stat3-label', d.stat3Label || 'Lokasi');
-      setVal('f-stat3-val',   d.stat3Val   || 'Malang, Jawa Timur');
-      setVal('f-stat4-label', d.stat4Label || 'Jam Operasional');
-      setVal('f-stat4-val',   d.stat4Val   || '07.00 – 17.00 WIB');
-      // Info
-      setVal('f-jam',          d.jam          || '07.00 – 17.00 WIB');
-      setVal('f-hari',         d.hari         || 'Setiap hari');
-      setVal('f-tiket-dewasa', d.tiketDewasa  || 'Rp 10.000');
-      setVal('f-tiket-anak',   d.tiketAnak    || 'Rp 5.000');
-      setVal('f-parkir-motor', d.parkirMotor  || 'Rp 3.000');
-      setVal('f-parkir-mobil', d.parkirMobil  || 'Rp 5.000');
-      setVal('f-alamat',       d.alamat       || 'Desa Duwet Krajan, Kec. Tumpang\nKab. Malang, Jawa Timur');
-      setVal('f-trek',         d.trek         || '30 – 45 menit');
-      // Galeri
-      setVal('f-gal1', d.gal1 || '');
-      setVal('f-gal2', d.gal2 || '');
-      setVal('f-gal3', d.gal3 || '');
-      setVal('f-gal4', d.gal4 || '');
-      setVal('f-gal5', d.gal5 || '');
-      // Kontak
-      setVal('f-ig',     d.ig     || '');
-      setVal('f-fb',     d.fb     || '');
-      setVal('f-yt',     d.yt     || '');
-      setVal('f-tt',     d.tt     || '');
-      setVal('f-wa',     d.wa     || '+62 881-0272-02516');
-      setVal('f-wa-msg', d.waMsg  || 'Halo, saya ingin bertanya tentang Sumber Pitu Waterfall.');
-      setVal('f-gmaps',  d.gmaps  || 'https://www.google.com/maps/place/Sumber+Pitu+Waterfall/@-8.0135832,112.8217266,17z/data=!3m1!4b1!4m6!3m5!1s0x2dd63ac87acac5d5:0x923963e602a1b0e2!8m2!3d-8.0135832!4d112.8217266!16s%2Fg%2F11bwh4mzms');
-      // Preview foto
+      setVal('f-line1',       d.line1       || 'Sumber');
+      setVal('f-line2',       d.line2       || 'Pitu');
+      setVal('f-desc',        d.desc        || '');
+      setVal('f-btn1',        d.btn1        || 'Rencanakan Kunjungan');
+      setVal('f-btn2',        d.btn2        || 'Lihat Galeri');
+      setVal('f-stat1-label', d.stat1Label  || 'Ketinggian Air Terjun');
+      setVal('f-stat1-val',   d.stat1Val    || '± 40 Meter');
+      setVal('f-stat2-label', d.stat2Label  || 'Total Aliran');
+      setVal('f-stat2-val',   d.stat2Val    || '14 Aliran Air');
+      setVal('f-stat3-label', d.stat3Label  || 'Lokasi');
+      setVal('f-stat3-val',   d.stat3Val    || 'Malang, Jawa Timur');
+      setVal('f-stat4-label', d.stat4Label  || 'Jam Operasional');
+      setVal('f-stat4-val',   d.stat4Val    || '07.00 – 17.00 WIB');
+      setVal('f-jam',         d.jam         || '07.00 – 17.00 WIB');
+      setVal('f-hari',        d.hari        || 'Setiap hari');
+      setVal('f-tiket-dewasa',d.tiketDewasa || 'Rp 10.000');
+      setVal('f-tiket-anak',  d.tiketAnak   || 'Rp 5.000');
+      setVal('f-parkir-motor',d.parkirMotor || 'Rp 3.000');
+      setVal('f-parkir-mobil',d.parkirMobil || 'Rp 5.000');
+      setVal('f-alamat',      d.alamat      || 'Desa Duwet Krajan, Kec. Tumpang\nKab. Malang, Jawa Timur');
+      setVal('f-trek',        d.trek        || '30 – 45 menit');
+      setVal('f-ig',          d.ig          || '');
+      setVal('f-yt',          d.yt          || '');
+      setVal('f-tt',          d.tt          || '');
+      setVal('f-wa',          d.wa          || '');
+      setVal('f-wa-msg',      d.waMsg       || 'Halo, saya ingin bertanya tentang Sumber Pitu.');
+      setVal('f-gmaps',       d.gmaps       || '');
+
+      // Foto hero (base64 di Firestore)
       if (d.heroImg) showPreview('prev-hero', 'fname-hero', d.heroImg, 'Foto tersimpan');
-      if (d.mapsImg) showPreview('prev-maps', 'fname-maps', d.mapsImg, 'Foto tersimpan');
       refreshRemoveButton('heroImg');
-      refreshRemoveButton('mapsImg');
+    }
+
+    function renderGaleri(g) {
+      for (var i = 1; i <= 5; i++) {
+        if (g['gal' + i]) setGaleriPreview(i, g['gal' + i], true);
+      }
     }
 
     /* =========================================================
-       UPLOAD FOTO
+       UPLOAD FOTO HERO & MAPS (base64 Firestore)
        ========================================================= */
     var imgConfig = {
       heroImg: { fileId: 'file-hero', prevId: 'prev-hero', fnameId: 'fname-hero', removeId: 'remove-hero' },
-      mapsImg: { fileId: 'file-maps', prevId: 'prev-maps', fnameId: 'fname-maps', removeId: 'remove-maps' }
     };
 
     function showPreview(prevId, fnameId, src, name) {
@@ -1080,17 +1140,12 @@
       if (fname) fname.textContent = '';
     }
 
-    // Tampilkan/sembunyikan tombol hapus sesuai kondisi:
-    // - ada pilihan foto baru yang belum disimpan  -> tombol "Batalkan Foto Baru"
-    // - ada foto tersimpan (di server)               -> tombol "Hapus Foto"
-    // - tidak ada keduanya                          -> tombol disembunyikan
     function refreshRemoveButton(imgKey) {
       var conf = imgConfig[imgKey];
       var btn  = document.getElementById(conf.removeId);
       if (!btn) return;
       var hasPending = !!window['_img_' + imgKey];
       var hasSaved   = !!getSaved()[imgKey];
-
       if (hasPending) {
         btn.textContent = '✕ Batalkan Foto Baru';
         btn.classList.add('is-pending');
@@ -1122,16 +1177,13 @@
       });
     }
 
-    // Tombol hapus/batalkan foto — mencegah data base64 menumpuk di server
     function setupRemove(imgKey) {
       var conf = imgConfig[imgKey];
       var btn  = document.getElementById(conf.removeId);
       if (!btn) return;
       btn.addEventListener('click', function() {
         var hasPending = !!window['_img_' + imgKey];
-
         if (hasPending) {
-          // Baru dipilih, belum disimpan -> batalkan pilihan, kembalikan ke foto tersimpan (jika ada)
           delete window['_img_' + imgKey];
           document.getElementById(conf.fileId).value = '';
           var saved = getSaved();
@@ -1142,17 +1194,13 @@
           }
           showToast('Pemilihan foto baru dibatalkan.');
         } else {
-          // Hapus foto yang sudah tersimpan di server agar tidak menumpuk
           var d = getSaved();
           if (d[imgKey]) {
             delete d[imgKey];
             siteDocRef.set(d).then(function() {
               cachedData = d;
-              showToast('✓ Foto dihapus dari server.');
-            }).catch(function(err) {
-              console.error(err);
-              showToast('✕ Gagal menghapus foto di server.');
-            });
+              showToast('✓ Foto dihapus.');
+            }).catch(function() { showToast('✕ Gagal menghapus foto.'); });
           }
           document.getElementById(conf.fileId).value = '';
           clearPreview(conf.prevId, conf.fnameId);
@@ -1162,25 +1210,210 @@
     }
 
     setupUpload('file-hero', 'prev-hero', 'fname-hero', 'heroImg');
-    setupUpload('file-maps', 'prev-maps', 'fname-maps', 'mapsImg');
     setupRemove('heroImg');
-    setupRemove('mapsImg');
-
-    // Tombol kosongkan untuk field URL foto galeri
-    document.querySelectorAll('.btn-clear-input').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var target = document.getElementById(btn.dataset.target);
-        if (target) { target.value = ''; target.focus(); }
-      });
-    });
 
     /* =========================================================
-       SIMPAN
+       GALERI — KOMPRESI OTOMATIS + SIMPAN BASE64 DI FIRESTORE
+       Dokumen terpisah: site/galeri (maks ~900KB total, aman)
+       Tiap foto dikompres ke maks 150KB sebelum disimpan
+       ========================================================= */
+
+    // Kompres gambar via Canvas API
+    function kompresGambar(file, maxKB, callback) {
+      var maxBytes = (maxKB || 150) * 1024;
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var img = new Image();
+        img.onload = function() {
+          var canvas  = document.createElement('canvas');
+          var ctx     = canvas.getContext('2d');
+          // Hitung dimensi — maks lebar 1200px
+          var maxW = 1200;
+          var w = img.width, h = img.height;
+          if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+          canvas.width  = w;
+          canvas.height = h;
+          ctx.drawImage(img, 0, 0, w, h);
+
+          // Turunkan quality sampai ukuran di bawah maxBytes
+          var quality = 0.85;
+          var result  = canvas.toDataURL('image/jpeg', quality);
+          while (result.length > maxBytes && quality > 0.15) {
+            quality -= 0.07;
+            result = canvas.toDataURL('image/jpeg', quality);
+          }
+          callback(result);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function initGaleriSlots() {
+      var grid = document.getElementById('galeri-grid');
+      grid.innerHTML = '';
+      for (var i = 1; i <= 5; i++) {
+        grid.appendChild(createGaleriSlot(i));
+      }
+    }
+
+    function createGaleriSlot(num) {
+      var wrap = document.createElement('div');
+      wrap.className = 'galeri-item';
+      wrap.id = 'galeri-slot-' + num;
+      wrap.innerHTML =
+        '<input type="file" id="galeri-file-' + num + '" accept="image/*">' +
+        '<div class="galeri-placeholder" id="galeri-ph-' + num + '">' +
+          '<div class="galeri-placeholder-icon">📷</div>' +
+          '<div class="galeri-placeholder-label">Pilih foto</div>' +
+          '<div class="galeri-placeholder-num">Galeri ' + num + '</div>' +
+        '</div>' +
+        '<img class="galeri-preview-img" id="galeri-prev-' + num + '" alt="Galeri ' + num + '">' +
+        '<div class="galeri-overlay" id="galeri-overlay-' + num + '">' +
+          '<div class="galeri-overlay-text">🔄 Ganti foto</div>' +
+        '</div>' +
+        '<button type="button" class="galeri-btn-remove" id="galeri-remove-' + num + '" title="Hapus foto">✕</button>' +
+        '<div class="galeri-progress" id="galeri-prog-' + num + '"><div class="galeri-progress-bar" id="galeri-progbar-' + num + '"></div></div>' +
+        '<div class="galeri-badge" id="galeri-badge-' + num + '"></div>';
+
+      setTimeout(function() { setupGaleriSlot(num); }, 0);
+      return wrap;
+    }
+
+    function setupGaleriSlot(num) {
+      var fileInput = document.getElementById('galeri-file-' + num);
+      var removeBtn = document.getElementById('galeri-remove-' + num);
+
+      if (fileInput) {
+        fileInput.addEventListener('change', function() {
+          var file = fileInput.files[0];
+          if (!file) return;
+          if (file.size > 15 * 1024 * 1024) {
+            alert('Ukuran file terlalu besar (maks 15MB)');
+            fileInput.value = '';
+            return;
+          }
+          prosesGaleriFoto(num, file);
+        });
+      }
+
+      if (removeBtn) {
+        removeBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          hapusGaleri(num);
+        });
+      }
+    }
+
+    function prosesGaleriFoto(num, file) {
+      setBadge(num, 'uploading', '⏳ Memproses...');
+      setProgress(num, true, 30);
+
+      kompresGambar(file, 150, function(base64) {
+        setProgress(num, true, 70);
+
+        // Tampilkan preview
+        setGaleriPreview(num, base64, false);
+
+        // Hitung ukuran hasil kompresi
+        var kb = Math.round(base64.length * 0.75 / 1024);
+        setBadge(num, 'uploading', '💾 Menyimpan (' + kb + 'KB)...');
+
+        // Simpan ke Firestore dokumen galeri terpisah
+        var g = Object.assign({}, cachedGaleri);
+        g['gal' + num] = base64;
+
+        galeriDocRef.set(g).then(function() {
+          cachedGaleri = g;
+          setProgress(num, false, 0);
+          setBadge(num, 'saved', '✓ Tersimpan (' + kb + 'KB)');
+          setGaleriPreview(num, base64, true);
+          showToast('✓ Foto Galeri ' + num + ' tersimpan (' + kb + 'KB)');
+        }).catch(function(err) {
+          console.error(err);
+          setProgress(num, false, 0);
+          setBadge(num, 'error', '✕ Gagal simpan');
+          if (err && err.code === 'invalid-argument') {
+            showToast('✕ Foto terlalu besar setelah kompresi. Coba foto dengan resolusi lebih kecil.');
+          } else {
+            showToast('✕ Gagal menyimpan foto. Cek koneksi internet.');
+          }
+        });
+      });
+    }
+
+    function hapusGaleri(num) {
+      var g = Object.assign({}, cachedGaleri);
+      delete g['gal' + num];
+      galeriDocRef.set(g).then(function() {
+        cachedGaleri = g;
+        showToast('✓ Foto Galeri ' + num + ' dihapus.');
+      }).catch(function() {
+        showToast('⚠ Gagal hapus dari server.');
+      });
+      clearGaleriPreview(num);
+    }
+
+    function setGaleriPreview(num, src, isSaved) {
+      var prev    = document.getElementById('galeri-prev-' + num);
+      var ph      = document.getElementById('galeri-ph-' + num);
+      var overlay = document.getElementById('galeri-overlay-' + num);
+      var removeBtn = document.getElementById('galeri-remove-' + num);
+      var slot    = document.getElementById('galeri-slot-' + num);
+
+      if (prev)    { prev.src = src; prev.classList.add('show'); }
+      if (ph)      ph.style.display = 'none';
+      if (overlay) overlay.classList.add('has-img');
+      if (removeBtn) removeBtn.classList.add('show');
+      if (slot)    slot.style.borderStyle = 'solid';
+      if (isSaved) setBadge(num, 'saved', '✓ Tersimpan');
+    }
+
+    function clearGaleriPreview(num) {
+      var prev    = document.getElementById('galeri-prev-' + num);
+      var ph      = document.getElementById('galeri-ph-' + num);
+      var overlay = document.getElementById('galeri-overlay-' + num);
+      var removeBtn = document.getElementById('galeri-remove-' + num);
+      var slot    = document.getElementById('galeri-slot-' + num);
+      var badge   = document.getElementById('galeri-badge-' + num);
+      var fileInput = document.getElementById('galeri-file-' + num);
+
+      if (prev)     { prev.classList.remove('show'); prev.src = ''; }
+      if (ph)       ph.style.display = '';
+      if (overlay)  overlay.classList.remove('has-img');
+      if (removeBtn) removeBtn.classList.remove('show');
+      if (slot)     slot.style.borderStyle = 'dashed';
+      if (badge)    { badge.classList.remove('show'); badge.className = 'galeri-badge'; }
+      if (fileInput) fileInput.value = '';
+    }
+
+    function setProgress(num, show, pct) {
+      var prog    = document.getElementById('galeri-prog-' + num);
+      var progbar = document.getElementById('galeri-progbar-' + num);
+      if (!prog || !progbar) return;
+      if (show) {
+        prog.classList.add('show');
+        progbar.style.width = pct + '%';
+      } else {
+        prog.classList.remove('show');
+        progbar.style.width = '0%';
+      }
+    }
+
+    function setBadge(num, type, text) {
+      var badge = document.getElementById('galeri-badge-' + num);
+      if (!badge) return;
+      badge.className = 'galeri-badge show ' + type;
+      badge.textContent = text;
+    }
+
+    /* =========================================================
+       SIMPAN (data teks + foto hero)
+       Foto galeri sudah otomatis tersimpan saat upload
        ========================================================= */
     document.getElementById('btn-save').addEventListener('click', function() {
       var d = getSaved();
 
-      // Kumpulkan semua field
       d.line1       = getVal('f-line1');
       d.line2       = getVal('f-line2');
       d.desc        = getVal('f-desc');
@@ -1202,38 +1435,31 @@
       d.parkirMobil = getVal('f-parkir-mobil');
       d.alamat      = getVal('f-alamat');
       d.trek        = getVal('f-trek');
-      d.gal1        = getVal('f-gal1');
-      d.gal2        = getVal('f-gal2');
-      d.gal3        = getVal('f-gal3');
-      d.gal4        = getVal('f-gal4');
-      d.gal5        = getVal('f-gal5');
       d.ig          = getVal('f-ig');
-      d.fb          = getVal('f-fb');
       d.yt          = getVal('f-yt');
       d.tt          = getVal('f-tt');
       d.wa          = getVal('f-wa');
       d.waMsg       = getVal('f-wa-msg');
       d.gmaps       = getVal('f-gmaps');
 
-      // Foto baru
       if (window._img_heroImg) { d.heroImg = window._img_heroImg; delete window._img_heroImg; }
-      if (window._img_mapsImg) { d.mapsImg = window._img_mapsImg; delete window._img_mapsImg; }
 
       var saveBtn = document.getElementById('btn-save');
       saveBtn.disabled = true;
       saveBtn.textContent = '💾 Menyimpan...';
 
+      // Simpan data teks + foto hero ke site/config
+      // (foto galeri sudah otomatis tersimpan ke site/galeri saat dipilih)
       siteDocRef.set(d)
         .then(function() {
           cachedData = d;
-          showToast('✓ Perubahan disimpan! Semua pengunjung & device akan melihat perubahan ini.');
+          showToast('✓ Perubahan disimpan! Foto galeri tersimpan otomatis saat dipilih.');
           refreshRemoveButton('heroImg');
-          refreshRemoveButton('mapsImg');
         })
         .catch(function(err) {
           console.error(err);
           if (err && err.code === 'invalid-argument') {
-            alert('Ukuran data terlalu besar (biasanya karena foto). Kurangi ukuran foto atau gunakan URL foto dari internet.');
+            alert('Data terlalu besar. Kurangi ukuran foto hero.');
           } else {
             alert('Gagal menyimpan ke server. Cek koneksi internet lalu coba lagi.');
           }
@@ -1245,24 +1471,20 @@
     });
 
     /* =========================================================
-       GANTI PASSWORD (Firebase Authentication)
+       GANTI PASSWORD
        ========================================================= */
     document.getElementById('btn-change-pass').addEventListener('click', function() {
-      var oldPass  = document.getElementById('f-pass-old').value;
-      var newPass  = document.getElementById('f-pass-new').value;
-      var confirm  = document.getElementById('f-pass-confirm').value;
-      var errEl    = document.getElementById('pass-error');
+      var oldPass = document.getElementById('f-pass-old').value;
+      var newPass = document.getElementById('f-pass-new').value;
+      var confirm = document.getElementById('f-pass-confirm').value;
+      var errEl   = document.getElementById('pass-error');
       errEl.textContent = '';
 
-      if (newPass.length < 6) {
-        errEl.textContent = '✕ Password baru minimal 6 karakter.'; return;
-      }
-      if (newPass !== confirm) {
-        errEl.textContent = '✕ Konfirmasi password tidak cocok.'; return;
-      }
+      if (newPass.length < 6) { errEl.textContent = '✕ Password baru minimal 6 karakter.'; return; }
+      if (newPass !== confirm) { errEl.textContent = '✕ Konfirmasi password tidak cocok.'; return; }
 
       var user = auth.currentUser;
-      if (!user) { errEl.textContent = '✕ Sesi login tidak ditemukan, coba login ulang.'; return; }
+      if (!user) { errEl.textContent = '✕ Sesi login tidak ditemukan.'; return; }
 
       var cred = firebase.auth.EmailAuthProvider.credential(user.email, oldPass);
       user.reauthenticateWithCredential(cred)
@@ -1274,11 +1496,9 @@
           showToast('✓ Password berhasil diubah!');
         })
         .catch(function(err) {
-          if (err.code === 'auth/wrong-password') {
-            errEl.textContent = '✕ Password saat ini salah.';
-          } else {
-            errEl.textContent = '✕ Gagal mengubah password: ' + err.message;
-          }
+          errEl.textContent = err.code === 'auth/wrong-password'
+            ? '✕ Password saat ini salah.'
+            : '✕ Gagal: ' + err.message;
         });
     });
 
@@ -1291,15 +1511,6 @@
       t.classList.add('show');
       setTimeout(function() { t.classList.remove('show'); }, 3500);
     }
-
-    /* =========================================================
-       AUTO-APPLY KE WEBSITE UTAMA
-       Data disimpan di Firestore (dokumen site/config).
-       index.html membaca dokumen yang sama secara real-time,
-       sehingga perubahan di sini otomatis terlihat oleh SEMUA
-       pengunjung, di semua device (bukan cuma browser ini).
-       ========================================================= */
   </script>
-
 </body>
 </html>
